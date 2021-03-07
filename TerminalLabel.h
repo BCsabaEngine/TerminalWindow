@@ -10,8 +10,8 @@ class TerminalLabel: public TerminalControl
     TerminalLabel(int x, int y, int width, const char* text, HAlign halign = left);
     virtual void draw(BasicTerm* term, bool focused);
   private:
-    char* text;
-    HAlign halign;
+    char* text = NULL;
+    HAlign halign = left;
 };
 
 #endif

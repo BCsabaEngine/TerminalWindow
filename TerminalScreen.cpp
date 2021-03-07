@@ -8,11 +8,14 @@ TerminalScreen::TerminalScreen(char* title)
   this->title = title;
 
   term->init();
+  term->show_cursor(false);
 }
 
 void TerminalScreen::addWindow(TerminalWindow* window)
 {
   window->setScreen(this);
+
+  window->init();
 
   this->windowindex++;
   this->windows[this->windowindex] = window;
@@ -41,11 +44,17 @@ void TerminalScreen::draw()
   term->write(this->title);
   term->write(" (");
   term->write(__DATE__);
-  term->write(") F: ");
+  term->write(")");
+
+#ifdef DEBUG
+  term->write(" F: ");
   term->write(String(freeMemory()).c_str());
+  term->write(" K: ");
+  term->write(String(this->key, HEX).c_str());
+#endif
 
   term->position(1, 0);
-  for (int i = 0; i < strlen(this->title) + 14 + 9; i++)
+  for (int i = 0; i < strlen(this->title) + 14; i++)
     term->write("*");
 
   this->getTopWindow()->draw(term);
@@ -53,5 +62,9 @@ void TerminalScreen::draw()
 
 void TerminalScreen::loop()
 {
+  this->key = this->term->get_key();
+  if (this->key > -1)
+    this->getTopWindow()->processKey(this->key);
+
   this->draw();
 }

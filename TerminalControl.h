@@ -14,8 +14,11 @@ class TerminalControl
     virtual bool canFocus() {
       return false;
     }
+    virtual bool handleKey(uint16_t key) {
+      return false;
+    }
   protected:
-    TerminalWindow* window;
+    TerminalWindow* window = NULL;
     int x;
     int y;
     int width;

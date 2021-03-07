@@ -22,7 +22,8 @@ void TerminalLabel::draw(BasicTerm* term, bool focused)
       padsize = (this->width - strlen(this->text)) / 2;
       break;
   }
-  term->position(this->y, this->x + padsize);
 
+  term->position(this->y, this->x + padsize);
+  term->set_attribute(BT_NORMAL);
   term->write(this->text);
 }

@@ -12,9 +12,10 @@ class TerminalButton: public TerminalControl
     virtual bool canFocus() {
       return true;
     }
+    virtual bool handleKey(uint16_t key);
   private:
-    char* text;
-    HAlign halign;
+    char* text = NULL;
+    HAlign halign = center;
 };
 
 #endif

@@ -17,10 +17,11 @@ class TerminalScreen
     void draw();
     void loop();
   private:
-    BasicTerm* term;
+    BasicTerm* term = NULL;
     TerminalWindow* windows[WINDOW_MAX_COUNT];
     int windowindex = -1;
-    char* title;
+    char* title = NULL;
+    uint16_t key = 0;
 };
 
 #endif
