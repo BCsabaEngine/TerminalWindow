@@ -1,17 +1,10 @@
-/*
-  TerminalWindow.h - Library for make screen and windows for VT220 screens
-  Created by Csaba Balazs, March 22, 2021
-  Released into the public domain.
-*/
-
 #ifndef TerminalWindow_h
 #define TerminalWindow_h
 
 #include <BasicTerm.h>
+#include "TerminalConfig.h"
 #include "TerminalScreen.h"
 #include "TerminalControl.h"
-
-#define CONTROL_MAX_COUNT 32
 
 class TerminalScreen;
 class TerminalControl;
@@ -21,12 +14,13 @@ class TerminalWindow
     TerminalWindow();
     void draw(BasicTerm* term);
     void close();
+    TerminalScreen* getScreen();
     void setScreen(TerminalScreen* screen);
     void addControl(TerminalControl* control);
   private:
-    TerminalScreen* _screen;
-    TerminalControl* _controls[CONTROL_MAX_COUNT];
-    int _controlcount = 0;
+    TerminalScreen* screen;
+    TerminalControl* controls[CONTROL_MAX_COUNT];
+    int controlcount = 0;
 };
 
 #endif

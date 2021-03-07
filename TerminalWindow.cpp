@@ -6,25 +6,32 @@ TerminalWindow::TerminalWindow()
 
 void TerminalWindow::draw(BasicTerm* term)
 {
-  for (int i = 0; i < this->_controlcount; i++)
-    this->_controls[i]->draw(term);
+  for (int i = 0; i < this->controlcount; i++)
+    this->controls[i]->draw(term);
 }
 
 void TerminalWindow::close()
 {
-  this->_screen->popWindow();
+  this->screen->popWindow();
+}
+
+TerminalScreen* TerminalWindow::getScreen()
+{
+  return this->screen;
 }
 
 void TerminalWindow::setScreen(TerminalScreen* screen)
 {
-  this->_screen = screen;
+  this->screen = screen;
 }
 
 void TerminalWindow::addControl(TerminalControl* control)
 {
-  if (this->_controlcount < CONTROL_MAX_COUNT)
+  if (this->controlcount < CONTROL_MAX_COUNT)
   {
-    this->_controls[this->_controlcount] = control;
-    this->_controlcount++;
+    control->setWindow(this);
+
+    this->controls[this->controlcount] = control;
+    this->controlcount++;
   }
 }
