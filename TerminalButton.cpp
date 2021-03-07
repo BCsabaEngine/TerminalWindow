@@ -1,27 +1,16 @@
 #include "TerminalControl.h"
 #include "TerminalButton.h"
 
-TerminalButton::TerminalButton(int x, int y, int width, const char* text, HAlign halign): TerminalControl(x, y, width)
+TerminalButton::TerminalButton(int x, int y, int width, const char* text): TerminalControl(x, y, width)
 {
   this->text = (char*)text;
   if (strlen(this->text) > this->width)
     this->text[this->width] = '\0';
-
-  this->halign = halign;
 }
 
 void TerminalButton::draw(BasicTerm* term, bool focused)
 {
-  int padsize = 0;
-  switch (this->halign)
-  {
-    case right:
-      padsize = this->width - strlen(this->text);
-      break;
-    case center:
-      padsize = (this->width - strlen(this->text)) / 2;
-      break;
-  }
+  int padsize = (this->width - strlen(this->text)) / 2;;
 
   if (focused)
     term->set_attribute(BT_REVERSE);
@@ -44,10 +33,13 @@ void TerminalButton::draw(BasicTerm* term, bool focused)
 
 bool TerminalButton::handleKey(uint16_t key)
 {
-  if (key == 13)
+  switch (key)
   {
-    this->text = (char*)"Alma";
-    return true;
+    case 0xA:
+    case ' ':
+      if (this->clickhandler)
+        this->clickhandler(this);
+      break;
   }
   return false;
 }
