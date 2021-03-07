@@ -23,6 +23,7 @@ class TerminalWindow
     TerminalScreen* screen = NULL;
     TerminalControl* controls[CONTROL_MAX_COUNT];
     int controlcount = 0;
+    byte focusedIndex = -1;
     TerminalControl* focused = NULL;
     void prevFocus();
     void nextFocus();

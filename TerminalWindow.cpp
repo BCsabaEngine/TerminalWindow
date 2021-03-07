@@ -6,56 +6,91 @@ TerminalWindow::TerminalWindow()
 
 void TerminalWindow::draw(BasicTerm* term)
 {
-  for (int i = 0; i < this->controlcount; i++)
-    this->controls[i]->draw(term, this->focused == this->controls[i]);
+  for (byte i = 0; i < this->controlcount; i++)
+    this->controls[i]->draw(term, this->focusedIndex == i);
 }
 
 void TerminalWindow::close()
 {
-  this->screen->popWindow();
+  this->getScreen()->popWindow();
 }
 
 void TerminalWindow::init()
 {
   if (!this->focused)
-    for (int i = 0; i < this->controlcount; i++)
+    for (byte i = 0; i < this->controlcount; i++)
       if (this->controls[i]->canFocus())
       {
         this->focused = this->controls[i];
+        this->focusedIndex = i;
         break;
       }
 }
 
 void TerminalWindow::prevFocus()
 {
+  byte actual = this->focusedIndex - 1;
 
+  while (actual != this->focusedIndex)
+  {
+    if (actual < 0)
+      actual = this->focusedIndex - 1;
+
+    if (this->controls[actual]->canFocus())
+    {
+      this->focused = this->controls[actual];
+      this->focusedIndex = actual;
+      return;
+    }
+
+    actual--;
+  }
 }
 
 void TerminalWindow::nextFocus()
 {
+  byte actual = this->focusedIndex + 1;
 
+  while (actual != this->focusedIndex)
+  {
+    if (actual >= this->controlcount)
+      actual = 0;
+
+    if (this->controls[actual]->canFocus())
+    {
+      this->focused = this->controls[actual];
+      this->focusedIndex = actual;
+      return;
+    }
+
+    actual++;
+  }
 }
 
 void TerminalWindow::processKey(uint16_t key)
 {
-  for (int i = 0; i < this->controlcount; i++)
-    if (this->focused == this->controls[i])
+  if (this->focusedIndex < 0)
+    return;
+
+  if (key == 0x1b)
+  {
+    this->close();
+    return;
+  }
+
+  bool handled = this->controls[this->focusedIndex]->handleKey(key);
+  if (!handled)
+    switch (key)
     {
-      bool handled = this->controls[i]->handleKey(key);
-      if (!handled)
-        switch (key)
-        {
-          case 0x9:   //TAB
-          case 0x102: //Down
-          case 0x105: //Right
-            this->nextFocus();
-            break;
-          case 0x103: //Up
-          case 0x104: //Left
-            this->prevFocus();
-            break;
-        }
-      break;
+      case 0x9:   //TAB
+      case BT_KEY_DOWN:
+      case BT_KEY_RIGHT:
+        this->nextFocus();
+        break;
+      case BT_KEY_UP:
+      case BT_KEY_LEFT:
+        this->prevFocus();
+        break;
     }
 }
 
