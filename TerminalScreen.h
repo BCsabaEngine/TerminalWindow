@@ -2,7 +2,6 @@
 #define TerminalScreen_h
 
 #include <BasicTerm.h>
-#include <MemoryFree.h>
 #include "TerminalConfig.h"
 #include "TerminalWindow.h"
 
