@@ -4,7 +4,7 @@
 #include <MemoryFree.h>
 #endif
 
-TerminalScreen::TerminalScreen(char* title)
+TerminalScreen::TerminalScreen(String title)
 {
   this->term = new BasicTerm(&Serial);
   this->windowindex = -1;
@@ -24,7 +24,7 @@ void TerminalScreen::addWindow(TerminalWindow* window)
   this->windows[this->windowindex] = window;
 }
 
-void(* resetFunc) (void) = 0;
+void(* rebootFunc) (void) = 0;
 
 void TerminalScreen::popWindow()
 {
@@ -40,12 +40,12 @@ void TerminalScreen::popWindow()
   {
     term->cls();
     term->position(0, 0);
-    term->print(F("No window, reset..."));
+    term->print(F("No window, reboot..."));
     term->flush();
 
     delay(1500);
 
-    resetFunc();
+    rebootFunc();
   }
 }
 
@@ -67,21 +67,34 @@ void TerminalScreen::draw()
   else
   {
     term->position(0, 0);
-    term->write(this->title);
+    term->print(this->title);
     term->print(F(" ("));
-    term->write(__DATE__);
+    term->print(__DATE__);
     term->print(F(")"));
 
 #ifdef DEBUG
     term->print(F(" F: "));
-    term->write(String(freeMemory()).c_str());
+    term->print(String(freeMemory()).c_str());
     term->print(F(" K: "));
-    term->write(String(this->key, HEX).c_str());
+    term->print(String(this->key, HEX).c_str());
 #endif
 
     term->position(1, 0);
-    for (int i = 0; i < strlen(this->title) + 14; i++)
-      term->print(F("*"));
+    for (int i = 0; i < this->title.length() + 14; i++)
+      term->print(F("="));
+
+    term->position(2, 0);
+    for (byte i = 0; i <= this->windowindex; i++)
+    {
+      if (i == this->windowindex)
+        term->set_attribute(BT_BOLD);
+
+      term->print(this->windows[i]->getTitle());
+      if (i < this->windowindex)
+        term->print(F(" / "));
+
+      term->set_attribute(BT_NORMAL);
+    }
 
     this->getTopWindow()->draw(term);
   }

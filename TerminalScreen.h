@@ -9,7 +9,7 @@ class TerminalWindow;
 class TerminalScreen
 {
   public:
-    TerminalScreen(char* title);
+    TerminalScreen(String title);
     void addWindow(TerminalWindow* window);
     void popWindow();
     TerminalWindow* getTopWindow();
@@ -19,7 +19,7 @@ class TerminalScreen
     BasicTerm* term = NULL;
     TerminalWindow* windows[WINDOW_MAX_COUNT];
     int windowindex = -1;
-    char* title = NULL;
+    String title = "";
     uint16_t key = 0;
 };
 

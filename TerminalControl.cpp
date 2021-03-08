@@ -5,7 +5,7 @@
 TerminalControl::TerminalControl(int x, int y, int width)
 {
   this->x = x;
-  this->y = y + SCREEN_HEADER_LINES;
+  this->y = y + SCREEN_HEADER_LINES + WINDOW_ROUTE_LINES;
   this->width = width;
 }
 
@@ -18,5 +18,3 @@ void TerminalControl::setWindow(TerminalWindow* window)
 {
   this->window = window;
 }
-
-//bool TerminalControl::canFocus()

@@ -7,10 +7,11 @@
 class TerminalLabel: public TerminalControl
 {
   public:
-    TerminalLabel(int x, int y, int width, const char* text, HAlign halign = left);
+    TerminalLabel(int x, int y, int width, String text, HAlign halign = left);
+    void setText(String text);
     virtual void draw(BasicTerm* term, bool focused);
   private:
-    char* text = NULL;
+    String text = "";
     HAlign halign = left;
 };
 

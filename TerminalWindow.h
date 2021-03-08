@@ -11,7 +11,18 @@ class TerminalControl;
 class TerminalWindow
 {
   public:
-    TerminalWindow();
+    TerminalWindow(String title);
+    ~TerminalWindow() {
+      for (byte i = 0; i < this->controlcount; i++)
+      {
+        delete this->controls[i];
+        this->controls[i] = NULL;
+      }
+      this->controlcount = 0;
+    }
+    String getTitle() {
+      return this->title;
+    }
     void draw(BasicTerm* term);
     void close();
     void init();
@@ -20,9 +31,10 @@ class TerminalWindow
     void addControl(TerminalControl* control);
     void processKey(uint16_t key);
   private:
+    String title;
     TerminalScreen* screen = NULL;
     TerminalControl* controls[CONTROL_MAX_COUNT];
-    int controlcount = 0;
+    byte controlcount = 0;
     byte focusedIndex = -1;
     TerminalControl* focused = NULL;
     void prevFocus();

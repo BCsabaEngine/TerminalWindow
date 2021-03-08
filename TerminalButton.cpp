@@ -1,32 +1,36 @@
 #include "TerminalControl.h"
 #include "TerminalButton.h"
 
-TerminalButton::TerminalButton(int x, int y, int width, const char* text): TerminalControl(x, y, width)
+TerminalButton::TerminalButton(int x, int y, int width, String text): TerminalControl(x, y, width)
 {
-  this->text = (char*)text;
-  if (strlen(this->text) > this->width)
-    this->text[this->width] = '\0';
+  this->setText(text);
+}
+
+void TerminalButton::setText(String text) {
+  if (text.length() > this->width)
+    text = text.substring(this->width);
+  this->text = text;
 }
 
 void TerminalButton::draw(BasicTerm* term, bool focused)
 {
-  int padsize = (this->width - strlen(this->text)) / 2;;
+  int padsize = (this->width - this->text.length()) / 2;
 
   if (focused)
     term->set_attribute(BT_REVERSE);
 
   term->position(this->y, this->x);
   for (int i = 0; i < this->width - 1; i++)
-    term->write(" ");
+    term->print(F(" "));
 
   term->position(this->y, this->x);
-  term->write("|");
+  term->print(F("|"));
 
   term->position(this->y, this->x + padsize);
-  term->write(this->text);
+  term->print(this->text);
 
   term->position(this->y, this->x + this->width - 1);
-  term->write("|");
+  term->print(F("|"));
 
   term->set_attribute(BT_NORMAL);
 }

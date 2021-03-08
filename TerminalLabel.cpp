@@ -1,13 +1,16 @@
 #include "TerminalControl.h"
 #include "TerminalLabel.h"
 
-TerminalLabel::TerminalLabel(int x, int y, int width, const char* text, HAlign halign): TerminalControl(x, y, width)
+TerminalLabel::TerminalLabel(int x, int y, int width, String text, HAlign halign): TerminalControl(x, y, width)
 {
-  this->text = (char*)text;
-  if (strlen(this->text) > this->width)
-    this->text[this->width] = '\0';
-
+  this->setText(text);
   this->halign = halign;
+}
+
+void TerminalLabel::setText(String text) {
+  if (text.length() > this->width)
+    text = text.substring(this->width);
+  this->text = text;
 }
 
 void TerminalLabel::draw(BasicTerm* term, bool focused)
@@ -16,14 +19,14 @@ void TerminalLabel::draw(BasicTerm* term, bool focused)
   switch (this->halign)
   {
     case right:
-      padsize = this->width - strlen(this->text);
+      padsize = this->width - this->text.length();
       break;
     case center:
-      padsize = (this->width - strlen(this->text)) / 2;
+      padsize = (this->width - this->text.length()) / 2;
       break;
   }
 
   term->position(this->y, this->x + padsize);
   term->set_attribute(BT_NORMAL);
-  term->write(this->text);
+  term->print(this->text);
 }

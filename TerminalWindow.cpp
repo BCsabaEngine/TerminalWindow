@@ -1,7 +1,8 @@
 #include "TerminalWindow.h"
 
-TerminalWindow::TerminalWindow()
+TerminalWindow::TerminalWindow(String title)
 {
+  this->title = title;
 }
 
 void TerminalWindow::draw(BasicTerm* term)
