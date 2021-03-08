@@ -12,8 +12,8 @@ class TerminalWindow
 {
   private:
     String title;
-    TerminalScreen* screen = NULL;
     TerminalControl* controls[CONTROL_MAX_COUNT];
+    TerminalScreen* screen = NULL;
     int controlcount = 0;
     int focusedIndex = -1;
     void prevFocus();
@@ -27,6 +27,7 @@ class TerminalWindow
     void draw(BasicTerm* term);
     void close();
     void init();
+    void redrawScreen();
     TerminalScreen* getScreen();
     void setScreen(TerminalScreen* screen);
     void addControl(TerminalControl* control);

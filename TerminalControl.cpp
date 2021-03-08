@@ -18,3 +18,9 @@ void TerminalControl::setWindow(TerminalWindow* window)
 {
   this->window = window;
 }
+
+void TerminalControl::redrawScreen()
+{
+  if (this->window)
+    this->window->redrawScreen();
+}

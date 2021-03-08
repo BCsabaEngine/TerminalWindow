@@ -28,6 +28,12 @@ void TerminalWindow::init()
       }
 }
 
+void TerminalWindow::redrawScreen()
+{
+  if (this->screen)
+    this->screen->draw();
+}
+
 void TerminalWindow::prevFocus()
 {
   int actual = this->focusedIndex - 1;
@@ -85,10 +91,12 @@ void TerminalWindow::processKey(uint16_t key)
       case BT_KEY_DOWN:
       case BT_KEY_RIGHT:
         this->nextFocus();
+        this->redrawScreen();
         break;
       case BT_KEY_UP:
       case BT_KEY_LEFT:
         this->prevFocus();
+        this->redrawScreen();
         break;
     }
 }

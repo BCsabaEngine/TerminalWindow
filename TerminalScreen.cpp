@@ -120,5 +120,5 @@ void TerminalScreen::loop()
     if (this->getTopWindow())
       this->getTopWindow()->processKey(this->key);
 
-  this->draw();
+  //this->draw();
 }

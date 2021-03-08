@@ -23,6 +23,7 @@ class TerminalControl
     int x;
     int y;
     int width;
+    void redrawScreen();
 };
 
 enum HAlign {
