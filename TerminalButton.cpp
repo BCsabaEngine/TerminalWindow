@@ -43,7 +43,7 @@ bool TerminalButton::handleKey(uint16_t key)
     case ' ':
       if (this->clickhandler)
         this->clickhandler(this);
-      break;
+      return true;
   }
   return false;
 }
