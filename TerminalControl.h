@@ -8,6 +8,7 @@ class TerminalControl
 {
   public:
     TerminalControl(int x, int y, int width);
+    ~TerminalControl() {}
     TerminalWindow* getWindow();
     void setWindow(TerminalWindow* window);
     virtual void draw(BasicTerm* term, bool focused);

@@ -7,22 +7,22 @@ TerminalWindow::TerminalWindow(String title)
 
 void TerminalWindow::draw(BasicTerm* term)
 {
-  for (byte i = 0; i < this->controlcount; i++)
+  for (int i = 0; i < this->controlcount; i++)
     this->controls[i]->draw(term, this->focusedIndex == i);
 }
 
 void TerminalWindow::close()
 {
-  this->getScreen()->popWindow();
+  if (this->getScreen())
+    this->getScreen()->popWindow();
 }
 
 void TerminalWindow::init()
 {
-  if (!this->focused)
-    for (byte i = 0; i < this->controlcount; i++)
+  if (this->focusedIndex == -1)
+    for (int i = 0; i < this->controlcount; i++)
       if (this->controls[i]->canFocus())
       {
-        this->focused = this->controls[i];
         this->focusedIndex = i;
         break;
       }
@@ -30,16 +30,15 @@ void TerminalWindow::init()
 
 void TerminalWindow::prevFocus()
 {
-  byte actual = this->focusedIndex - 1;
+  int actual = this->focusedIndex - 1;
 
   while (actual != this->focusedIndex)
   {
     if (actual < 0)
-      actual = this->focusedIndex - 1;
+      actual = this->controlcount - 1;
 
     if (this->controls[actual]->canFocus())
     {
-      this->focused = this->controls[actual];
       this->focusedIndex = actual;
       return;
     }
@@ -50,7 +49,7 @@ void TerminalWindow::prevFocus()
 
 void TerminalWindow::nextFocus()
 {
-  byte actual = this->focusedIndex + 1;
+  int actual = this->focusedIndex + 1;
 
   while (actual != this->focusedIndex)
   {
@@ -59,7 +58,6 @@ void TerminalWindow::nextFocus()
 
     if (this->controls[actual]->canFocus())
     {
-      this->focused = this->controls[actual];
       this->focusedIndex = actual;
       return;
     }
@@ -70,14 +68,14 @@ void TerminalWindow::nextFocus()
 
 void TerminalWindow::processKey(uint16_t key)
 {
-  if (this->focusedIndex < 0)
-    return;
-
   if (key == 0x1b)
   {
     this->close();
     return;
   }
+
+  if (this->focusedIndex < 0)
+    return;
 
   bool handled = this->controls[this->focusedIndex]->handleKey(key);
   if (!handled)

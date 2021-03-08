@@ -10,6 +10,7 @@ class TerminalScreen
 {
   public:
     TerminalScreen(String title);
+    ~TerminalScreen();
     void addWindow(TerminalWindow* window);
     void popWindow();
     TerminalWindow* getTopWindow();

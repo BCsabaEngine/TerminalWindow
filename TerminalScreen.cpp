@@ -6,12 +6,21 @@
 
 TerminalScreen::TerminalScreen(String title)
 {
-  this->term = new BasicTerm(&Serial);
   this->windowindex = -1;
   this->title = title;
 
-  term->init();
-  term->show_cursor(false);
+  this->term = new BasicTerm(&Serial);
+  this->term->init();
+  this->term->show_cursor(false);
+}
+
+TerminalScreen::~TerminalScreen()
+{
+  if (this->term)
+  {
+    delete this->term;
+    this->term = NULL;
+  }
 }
 
 void TerminalScreen::addWindow(TerminalWindow* window)
@@ -22,6 +31,8 @@ void TerminalScreen::addWindow(TerminalWindow* window)
 
   this->windowindex++;
   this->windows[this->windowindex] = window;
+
+  this->draw();
 }
 
 void(* rebootFunc) (void) = 0;
@@ -31,6 +42,7 @@ void TerminalScreen::popWindow()
   if (this->windowindex >= 0)
   {
     delete this->windows[this->windowindex];
+    this->windows[this->windowindex] = NULL;
     this->windowindex--;
 
     this->draw();
@@ -53,6 +65,7 @@ TerminalWindow* TerminalScreen::getTopWindow()
 {
   if (this->windowindex >= 0)
     return this->windows[this->windowindex];
+  return NULL;
 }
 
 void TerminalScreen::draw()
@@ -104,7 +117,8 @@ void TerminalScreen::loop()
 {
   this->key = this->term->get_key();
   if (this->key != -1)
-    this->getTopWindow()->processKey(this->key);
+    if (this->getTopWindow())
+      this->getTopWindow()->processKey(this->key);
 
   this->draw();
 }

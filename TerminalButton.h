@@ -10,6 +10,7 @@ class TerminalButton: public TerminalControl
 {
   public:
     TerminalButton(int x, int y, int width, String text);
+    ~TerminalButton() {}
     void setText(String text);
     virtual void draw(BasicTerm* term, bool focused);
     virtual bool canFocus() {
