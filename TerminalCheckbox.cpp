@@ -1,4 +1,4 @@
-#include "TerminalControl.h"
+#include "TerminalConfig.h"
 #include "TerminalCheckbox.h"
 
 TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext): TerminalControl(x, y, width) {
@@ -34,15 +34,37 @@ void TerminalCheckbox::draw(BasicTerm* term, bool focused) {
 
 bool TerminalCheckbox::handleKey(uint16_t key) {
   switch (key) {
+
+#ifdef CONTROL_CHECKBOX_SPACE
     case ' ':
       this->setValue(!this->getValue());
       return true;
-    case 'y':
+#endif
+
+#ifdef CONTROL_CHECKBOX_ENTER
+    case 0xA:
+      this->setValue(!this->getValue());
+      return true;
+#endif
+
+#ifdef CONTROL_CHECKBOX_UP_DOWN
+    case BT_KEY_UP:
       this->setValue(true);
       return true;
-    case 'n':
+    case BT_KEY_DOWN:
       this->setValue(false);
       return true;
+#endif
+
+#ifdef CONTROL_CHECKBOX_LEFT_RIGHT
+    case BT_KEY_LEFT:
+      this->setValue(false);
+      return true;
+    case BT_KEY_RIGHT:
+      this->setValue(true);
+      return true;
+#endif
+
   }
   return false;
 }

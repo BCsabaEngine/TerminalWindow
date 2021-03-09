@@ -61,10 +61,14 @@ void TerminalWindow::nextFocus() {
 }
 
 void TerminalWindow::processKey(uint16_t key) {
-  if (key == 0x1b) {
+
+#ifdef WINDOW_CLOSE_ESC
+  if (key == 0x1b)
+  {
     this->close();
     return;
   }
+#endif
 
   if (this->focusedIndex < 0)
     return;
@@ -72,17 +76,42 @@ void TerminalWindow::processKey(uint16_t key) {
   bool handled = this->controls[this->focusedIndex]->handleKey(key);
   if (!handled)
     switch (key) {
-      case 0x9:   //TAB
+
+#ifdef CONTROL_MOVE_TAB
+      case 0x9:
+        this->nextFocus();
+        this->redrawScreen();
+        break;
+#endif
+
+#ifdef CONTROL_MOVE_UP_DOWN
       case BT_KEY_DOWN:
+        this->nextFocus();
+        this->redrawScreen();
+        break;
+#endif
+
+#ifdef CONTROL_MOVE_LEFT_RIGHT
       case BT_KEY_RIGHT:
         this->nextFocus();
         this->redrawScreen();
         break;
+#endif
+
+#ifdef CONTROL_MOVE_UP_DOWN
       case BT_KEY_UP:
+        this->prevFocus();
+        this->redrawScreen();
+        break;
+#endif
+
+#ifdef CONTROL_MOVE_LEFT_RIGHT
       case BT_KEY_LEFT:
         this->prevFocus();
         this->redrawScreen();
         break;
+#endif
+
     }
 }
 

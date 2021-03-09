@@ -1,4 +1,4 @@
-#include "TerminalControl.h"
+#include "TerminalConfig.h"
 #include "TerminalLabel.h"
 
 TerminalLabel::TerminalLabel(byte x, byte y, byte width, String text, HAlign halign): TerminalControl(x, y, width) {

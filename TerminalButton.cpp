@@ -1,4 +1,4 @@
-#include "TerminalControl.h"
+#include "TerminalConfig.h"
 #include "TerminalButton.h"
 
 TerminalButton::TerminalButton(byte x, byte y, byte width, String text): TerminalControl(x, y, width) {
@@ -33,11 +33,21 @@ void TerminalButton::draw(BasicTerm* term, bool focused) {
 
 bool TerminalButton::handleKey(uint16_t key) {
   switch (key) {
-    case 0xA:
+
+#ifdef CONTROL_BUTTON_SPACE
     case ' ':
       if (this->clickhandler)
         this->clickhandler(this);
       return true;
+#endif
+
+#ifdef CONTROL_BUTTON_ENTER
+    case 0xA:
+      if (this->clickhandler)
+        this->clickhandler(this);
+      return true;
+#endif
+
   }
   return false;
 }

@@ -110,8 +110,13 @@ void TerminalScreen::draw() {
 void TerminalScreen::loop() {
   this->key = this->term->get_key();
   if (this->key != -1)
+  {
     if (this->getTopWindow())
       this->getTopWindow()->processKey(this->key);
+#ifdef DEBUG
+    this->redrawScreen();
+#endif
+  }
 
   if (this->needRedraw)
     if (millis() - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS) {
