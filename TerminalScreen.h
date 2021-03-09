@@ -1,7 +1,7 @@
 #ifndef TerminalScreen_h
 #define TerminalScreen_h
 
-#include <BasicTerm.h>
+#include "BasicTerm.h"
 #include "TerminalConfig.h"
 #include "TerminalWindow.h"
 

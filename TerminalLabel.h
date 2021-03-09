@@ -1,7 +1,7 @@
 #ifndef TerminalLabel_h
 #define TerminalLabel_h
 
-#include <BasicTerm.h>
+#include "BasicTerm.h"
 #include "TerminalControl.h"
 
 class TerminalLabel: public TerminalControl {

@@ -22,6 +22,7 @@ void TerminalLabel::draw(BasicTerm* term, bool focused) {
   }
 
   term->set_attribute(BT_NORMAL);
+
   term->position(this->y, this->x + padsize);
   term->print(this->text);
 }
