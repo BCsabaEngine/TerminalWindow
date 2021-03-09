@@ -1,7 +1,7 @@
 #ifndef TerminalConfig_h
 #define TerminalConfig_h
 
-#define DEBUG
+// #define DEBUG
 
 #define SCREEN_HEADER_LINES 2
 #define SCREEN_REDRAW_LATENCY_MS 100
