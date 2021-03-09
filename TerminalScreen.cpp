@@ -4,8 +4,7 @@
 #include <MemoryFree.h>
 #endif
 
-TerminalScreen::TerminalScreen(String title)
-{
+TerminalScreen::TerminalScreen(String title) {
   this->windowindex = -1;
   this->title = title;
 
@@ -14,17 +13,14 @@ TerminalScreen::TerminalScreen(String title)
   this->term->show_cursor(false);
 }
 
-TerminalScreen::~TerminalScreen()
-{
-  if (this->term)
-  {
+TerminalScreen::~TerminalScreen() {
+  if (this->term) {
     delete this->term;
     this->term = NULL;
   }
 }
 
-void TerminalScreen::addWindow(TerminalWindow* window)
-{
+void TerminalScreen::addWindow(TerminalWindow* window) {
   window->setScreen(this);
 
   window->init();
@@ -37,10 +33,8 @@ void TerminalScreen::addWindow(TerminalWindow* window)
 
 void(* rebootFunc) (void) = 0;
 
-void TerminalScreen::popWindow()
-{
-  if (this->windowindex >= 0)
-  {
+void TerminalScreen::popWindow() {
+  if (this->windowindex >= 0) {
     delete this->windows[this->windowindex];
     this->windows[this->windowindex] = NULL;
     this->windowindex--;
@@ -48,8 +42,7 @@ void TerminalScreen::popWindow()
     this->redrawScreen();
   }
 
-  if (this->windowindex < 0)
-  {
+  if (this->windowindex < 0) {
     term->cls();
     term->position(0, 0);
     term->print(F("No window, reboot..."));
@@ -61,29 +54,24 @@ void TerminalScreen::popWindow()
   }
 }
 
-TerminalWindow* TerminalScreen::getTopWindow()
-{
+TerminalWindow* TerminalScreen::getTopWindow() {
   if (this->windowindex >= 0)
     return this->windows[this->windowindex];
   return NULL;
 }
 
-void TerminalScreen::redrawScreen()
-{
+void TerminalScreen::redrawScreen() {
   this->needRedraw = true;
 }
 
-void TerminalScreen::draw()
-{
+void TerminalScreen::draw() {
   term->cls();
 
-  if (!this->getTopWindow())
-  {
+  if (!this->getTopWindow()) {
     term->position(0, 0);
     term->print(F("No window!"));
   }
-  else
-  {
+  else {
     term->position(0, 0);
     term->print(this->title);
     term->print(F(" ("));
@@ -102,8 +90,7 @@ void TerminalScreen::draw()
       term->print(F("="));
 
     term->position(2, 0);
-    for (byte i = 0; i <= this->windowindex; i++)
-    {
+    for (byte i = 0; i <= this->windowindex; i++) {
       if (i == this->windowindex)
         term->set_attribute(BT_BOLD);
 
@@ -120,19 +107,15 @@ void TerminalScreen::draw()
   }
 }
 
-void TerminalScreen::loop()
-{
+void TerminalScreen::loop() {
   this->key = this->term->get_key();
   if (this->key != -1)
     if (this->getTopWindow())
       this->getTopWindow()->processKey(this->key);
 
   if (this->needRedraw)
-  {
-    if (millis() - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS)
-    {
+    if (millis() - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS) {
       this->draw();
       this->needRedraw = false;
     }
-  }
 }

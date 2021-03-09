@@ -3,18 +3,37 @@
 
 #include <BasicTerm.h>
 
+enum HAlign {
+  left,
+  center,
+  right,
+};
+
+enum LabelPos {
+  top,
+  leftAlignLeft,
+  leftAlignRight,
+};
+
 class TerminalWindow;
-class TerminalControl
-{
+class TerminalControl {
   protected:
     TerminalWindow* window = NULL;
     byte x;
     byte y;
     byte width;
+    struct {
+      String text;
+      LabelPos pos;
+      void draw() {
+
+      }
+    } label;
     void redrawScreen();
     String shortString(String s);
   public:
     TerminalControl(byte x, byte y, byte width);
+    void addLabel(String text, LabelPos labelpos);
     TerminalWindow* getWindow();
     void setWindow(TerminalWindow* window);
     virtual void draw(BasicTerm* term, bool focused) {}
@@ -24,12 +43,6 @@ class TerminalControl
     virtual bool handleKey(uint16_t key) {
       return false;
     }
-};
-
-enum HAlign {
-  left,
-  center,
-  right,
 };
 
 #endif

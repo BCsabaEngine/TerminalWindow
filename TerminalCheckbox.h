@@ -6,8 +6,7 @@
 
 class TerminalCheckbox;
 typedef void (*checkboxFuncPtr)(TerminalCheckbox *checkbox, bool value);
-class TerminalCheckbox: public TerminalControl
-{
+class TerminalCheckbox: public TerminalControl {
   private:
     bool value = false;
     String offtext;

@@ -6,8 +6,7 @@
 
 class TerminalButton;
 typedef void (*buttonFuncPtr)(TerminalButton *button);
-class TerminalButton: public TerminalControl
-{
+class TerminalButton: public TerminalControl {
   private:
     String text;
     buttonFuncPtr clickhandler = NULL;

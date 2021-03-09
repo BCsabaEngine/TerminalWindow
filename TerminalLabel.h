@@ -4,8 +4,7 @@
 #include <BasicTerm.h>
 #include "TerminalControl.h"
 
-class TerminalLabel: public TerminalControl
-{
+class TerminalLabel: public TerminalControl {
   private:
     String text;
     HAlign halign = left;

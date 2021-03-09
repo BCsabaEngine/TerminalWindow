@@ -1,19 +1,16 @@
 #include "TerminalControl.h"
 #include "TerminalCheckbox.h"
 
-TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext): TerminalControl(x, y, width)
-{
+TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext): TerminalControl(x, y, width) {
   this->offtext = this->shortString(offtext);
   this->ontext = this->shortString(ontext);
 }
 
-bool TerminalCheckbox::getValue()
-{
+bool TerminalCheckbox::getValue() {
   return this->value;
 }
 
-void TerminalCheckbox::setValue(bool value)
-{
+void TerminalCheckbox::setValue(bool value) {
   this->value = value;
 
   if (this->changehandler)
@@ -22,8 +19,7 @@ void TerminalCheckbox::setValue(bool value)
   this->redrawScreen();
 }
 
-void TerminalCheckbox::draw(BasicTerm* term, bool focused)
-{
+void TerminalCheckbox::draw(BasicTerm* term, bool focused) {
   String text = "[" + (this->value ? this->ontext : this->offtext) + "]";
 
   if (focused)
@@ -35,10 +31,8 @@ void TerminalCheckbox::draw(BasicTerm* term, bool focused)
   term->set_attribute(BT_NORMAL);
 }
 
-bool TerminalCheckbox::handleKey(uint16_t key)
-{
-  switch (key)
-  {
+bool TerminalCheckbox::handleKey(uint16_t key) {
+  switch (key) {
     case ' ':
       this->setValue(!this->getValue());
       return true;

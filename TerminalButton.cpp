@@ -32,8 +32,7 @@ void TerminalButton::draw(BasicTerm* term, bool focused) {
 }
 
 bool TerminalButton::handleKey(uint16_t key) {
-  switch (key)
-  {
+  switch (key) {
     case 0xA:
     case ' ':
       if (this->clickhandler)
