@@ -9,7 +9,7 @@ I often face the fact that I would have to set something up without modifying th
 
 Just connect your Arduino devices to the COM port, open a terminal window (putty or SmarTTY) and use the keyboard to adjust the parameters. Utilizing the capabilities of the VT220, you can easily create simple parameterization windows for your Arduino devices. You can also create buttons, check boxes, number entry fields, and new windows in the user interface.
 
-![Usage](https://github.com/BCsabaEngine/TerminalWindow/blob/main/image.jpg?raw=true)
+![Usage](https://github.com/BCsabaEngine/TerminalWindow/blob/main/docs/demo.gif?raw=true)
 
 You can read the settings from EEPROM or SD card and write them back there. This is your business.
 
