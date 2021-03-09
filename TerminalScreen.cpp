@@ -32,7 +32,7 @@ void TerminalScreen::addWindow(TerminalWindow* window)
   this->windowindex++;
   this->windows[this->windowindex] = window;
 
-  this->draw();
+  this->redrawScreen();
 }
 
 void(* rebootFunc) (void) = 0;
@@ -45,7 +45,7 @@ void TerminalScreen::popWindow()
     this->windows[this->windowindex] = NULL;
     this->windowindex--;
 
-    this->draw();
+    this->redrawScreen();
   }
 
   if (this->windowindex < 0)
@@ -66,6 +66,11 @@ TerminalWindow* TerminalScreen::getTopWindow()
   if (this->windowindex >= 0)
     return this->windows[this->windowindex];
   return NULL;
+}
+
+void TerminalScreen::redrawScreen()
+{
+  this->needRedraw = true;
 }
 
 void TerminalScreen::draw()
@@ -102,7 +107,7 @@ void TerminalScreen::draw()
       if (i == this->windowindex)
         term->set_attribute(BT_BOLD);
 
-      term->print(this->windows[i]->getTitle());
+      term->print(this->windows[i]->title);
       if (i < this->windowindex)
         term->print(F(" / "));
 
@@ -110,6 +115,8 @@ void TerminalScreen::draw()
     }
 
     this->getTopWindow()->draw(term);
+
+    this->lastRedraw = millis();
   }
 }
 
@@ -120,5 +127,12 @@ void TerminalScreen::loop()
     if (this->getTopWindow())
       this->getTopWindow()->processKey(this->key);
 
-  //this->draw();
+  if (this->needRedraw)
+  {
+    if (millis() - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS)
+    {
+      this->draw();
+      this->needRedraw = false;
+    }
+  }
 }

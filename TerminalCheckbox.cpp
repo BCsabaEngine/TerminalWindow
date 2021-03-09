@@ -1,15 +1,10 @@
 #include "TerminalControl.h"
 #include "TerminalCheckbox.h"
 
-TerminalCheckbox::TerminalCheckbox(int x, int y, int width, String ontext, String offtext): TerminalControl(x, y, width)
+TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext): TerminalControl(x, y, width)
 {
-  if (offtext.length() > this->width)
-    offtext = offtext.substring(this->width);
-  this->offtext = offtext;
-
-  if (ontext.length() > this->width)
-    ontext = ontext.substring(this->width);
-  this->ontext = ontext;
+  this->offtext = this->shortString(offtext);
+  this->ontext = this->shortString(ontext);
 }
 
 bool TerminalCheckbox::getValue()
@@ -22,7 +17,7 @@ void TerminalCheckbox::setValue(bool value)
   this->value = value;
 
   if (this->changehandler)
-    this->changehandler(this);
+    this->changehandler(this, value);
 
   this->redrawScreen();
 }

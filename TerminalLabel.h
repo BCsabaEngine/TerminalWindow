@@ -6,14 +6,13 @@
 
 class TerminalLabel: public TerminalControl
 {
+  private:
+    String text;
+    HAlign halign = left;
   public:
-    TerminalLabel(int x, int y, int width, String text, HAlign halign = left);
-    ~TerminalLabel() {}
+    TerminalLabel(byte x, byte y, byte width, String text, HAlign halign = left);
     void setText(String text);
     virtual void draw(BasicTerm* term, bool focused);
-  private:
-    String text = "";
-    HAlign halign = left;
 };
 
 #endif

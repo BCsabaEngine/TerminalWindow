@@ -8,21 +8,20 @@ class TerminalButton;
 typedef void (*buttonFuncPtr)(TerminalButton *button);
 class TerminalButton: public TerminalControl
 {
+  private:
+    String text;
+    buttonFuncPtr clickhandler = NULL;
   public:
-    TerminalButton(int x, int y, int width, String text);
-    ~TerminalButton() {}
+    TerminalButton(byte x, byte y, byte width, String text);
     void setText(String text);
     virtual void draw(BasicTerm* term, bool focused);
     virtual bool canFocus() {
       return true;
     }
     virtual bool handleKey(uint16_t key);
-    void setClickHandler(volatile buttonFuncPtr clickhandler) {
+    void setClickHandler(buttonFuncPtr clickhandler) {
       this->clickhandler = clickhandler;
     }
-  private:
-    String text = "";
-    buttonFuncPtr clickhandler = NULL;
 };
 
 #endif

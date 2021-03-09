@@ -11,7 +11,6 @@ class TerminalControl;
 class TerminalWindow
 {
   private:
-    String title;
     TerminalControl* controls[CONTROL_MAX_COUNT];
     TerminalScreen* screen = NULL;
     int controlcount = 0;
@@ -21,9 +20,7 @@ class TerminalWindow
   public:
     TerminalWindow(String title);
     virtual ~TerminalWindow() {}
-    String getTitle() {
-      return this->title;
-    }
+    String title;
     void draw(BasicTerm* term);
     void close();
     void init();

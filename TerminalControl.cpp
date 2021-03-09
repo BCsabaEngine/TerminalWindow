@@ -2,7 +2,20 @@
 #include "TerminalScreen.h"
 #include "TerminalControl.h"
 
-TerminalControl::TerminalControl(int x, int y, int width)
+void TerminalControl::redrawScreen()
+{
+  if (this->window)
+    this->window->redrawScreen();
+}
+
+String TerminalControl::shortString(String s)
+{
+  if (s.length() > this->width)
+    return s.substring(this->width);
+  return s;
+}
+
+TerminalControl::TerminalControl(byte x, byte y, byte width)
 {
   this->x = x;
   this->y = y + SCREEN_HEADER_LINES + WINDOW_ROUTE_LINES;
@@ -17,10 +30,4 @@ TerminalWindow* TerminalControl::getWindow()
 void TerminalControl::setWindow(TerminalWindow* window)
 {
   this->window = window;
-}
-
-void TerminalControl::redrawScreen()
-{
-  if (this->window)
-    this->window->redrawScreen();
 }

@@ -13,8 +13,8 @@ void TerminalWindow::draw(BasicTerm* term)
 
 void TerminalWindow::close()
 {
-  if (this->getScreen())
-    this->getScreen()->popWindow();
+  if (this->screen)
+    this->screen->popWindow();
 }
 
 void TerminalWindow::init()
@@ -31,7 +31,7 @@ void TerminalWindow::init()
 void TerminalWindow::redrawScreen()
 {
   if (this->screen)
-    this->screen->draw();
+    this->screen->redrawScreen();
 }
 
 void TerminalWindow::prevFocus()
@@ -113,11 +113,11 @@ void TerminalWindow::setScreen(TerminalScreen* screen)
 
 void TerminalWindow::addControl(TerminalControl* control)
 {
-  if (this->controlcount < CONTROL_MAX_COUNT)
-  {
-    control->setWindow(this);
+  if (this->controlcount >= CONTROL_MAX_COUNT)
+    return;
 
-    this->controls[this->controlcount] = control;
-    this->controlcount++;
-  }
+  control->setWindow(this);
+
+  this->controls[this->controlcount] = control;
+  this->controlcount++;
 }
