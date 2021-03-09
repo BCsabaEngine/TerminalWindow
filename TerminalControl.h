@@ -4,15 +4,14 @@
 #include <BasicTerm.h>
 
 enum HAlign {
-  left,
-  center,
-  right,
+  hAlignLeft,
+  hAlignCenter,
+  hAlignRight,
 };
 
 enum LabelPos {
-  top,
-  leftAlignLeft,
-  leftAlignRight,
+  labelPosTop,
+  labelPosLeft,
 };
 
 class TerminalWindow;
@@ -22,13 +21,9 @@ class TerminalControl {
     byte x;
     byte y;
     byte width;
-    struct {
-      String text;
-      LabelPos pos;
-      void draw() {
-
-      }
-    } label;
+    String labelText;
+    LabelPos labelPos;
+    void labelDraw(BasicTerm* term);
     void redrawScreen();
     String shortString(String s);
   public:

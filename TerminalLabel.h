@@ -7,9 +7,9 @@
 class TerminalLabel: public TerminalControl {
   private:
     String text;
-    HAlign halign = left;
+    HAlign halign;
   public:
-    TerminalLabel(byte x, byte y, byte width, String text, HAlign halign = left);
+    TerminalLabel(byte x, byte y, byte width, String text, HAlign halign = hAlignLeft);
     void setText(String text);
     virtual void draw(BasicTerm* term, bool focused);
 };

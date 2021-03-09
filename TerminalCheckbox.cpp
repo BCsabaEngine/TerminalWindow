@@ -20,8 +20,9 @@ void TerminalCheckbox::setValue(bool value) {
 }
 
 void TerminalCheckbox::draw(BasicTerm* term, bool focused) {
-  String text = "[" + (this->value ? this->ontext : this->offtext) + "]";
+  this->labelDraw(term);
 
+  String text = "[" + (this->value ? this->ontext : this->offtext) + "]";
   if (focused)
     term->set_attribute(BT_REVERSE);
 

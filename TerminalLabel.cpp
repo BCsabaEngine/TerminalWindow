@@ -13,10 +13,10 @@ void TerminalLabel::setText(String text) {
 void TerminalLabel::draw(BasicTerm* term, bool focused) {
   byte padsize = 0;
   switch (this->halign) {
-    case right:
+    case hAlignRight:
       padsize = this->width - this->text.length();
       break;
-    case center:
+    case hAlignCenter:
       padsize = (this->width - this->text.length()) / 2;
       break;
   }
