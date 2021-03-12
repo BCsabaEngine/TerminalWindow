@@ -56,6 +56,10 @@ TerminalWindow* TerminalControl::getWindow() {
   return this->window;
 }
 
+TerminalScreen* TerminalControl::getScreen() {
+  return this->window->getScreen();
+}
+
 void TerminalControl::setWindow(TerminalWindow* window) {
   this->window = window;
 }

@@ -15,6 +15,7 @@ enum LabelPos {
 };
 
 class TerminalWindow;
+class TerminalScreen;
 class TerminalControl {
   protected:
     TerminalWindow* window = NULL;
@@ -29,6 +30,7 @@ class TerminalControl {
   public:
     TerminalControl(byte x, byte y, byte width);
     void addLabel(String text, LabelPos labelpos);
+    TerminalScreen* getScreen();
     TerminalWindow* getWindow();
     void setWindow(TerminalWindow* window);
     virtual void draw(BasicTerm* term, bool focused) {}
