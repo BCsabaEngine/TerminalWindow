@@ -18,13 +18,13 @@ You can read the settings from EEPROM or SD card and write them back there. This
 You can use the following components with these parameters and methods:
 ```
 TerminalButton btn1 = TerminalButton(byte x, byte y, byte width, String text);
-btn1.addLabel(String text, LabelPos labelpos);
+btn1.addLabel(String text, LabelPos labelpos); // Add label for control (top or left)
 btn1.setClickHandler([](TerminalButton * button) { /*insert event code here */ });
 btn1.setText(String text);
 
 TerminalCheckbox cb1 = TerminalCheckbox(byte x, byte y, byte width, String ontext = "x", String offtext = " ");
 cb1.addLabel(String text, LabelPos labelpos);
-cb1.setClickHandler([](TerminalCheckbox * checkbox, bool value) { /*insert event code here */ });
+cb1.setChangeHandler([](TerminalCheckbox * checkbox, bool value) { /*insert event code here */ });
 cb1.getValue();
 cb1.setValue(bool value);
 
@@ -33,11 +33,12 @@ label1.setText(String text);
 
 TerminalNumEdit num1 = TerminalNumEdit(byte x, byte y, byte width);
 num1.addLabel(String text, LabelPos labelpos);
-num1.setClickHandler([](TerminalNumEdit * numedit, int value) { /*insert event code here */ });
+num1.setChangeHandler([](TerminalNumEdit * numedit, int value) { /*insert event code here */ });
 num1.setMinMax(int min, int max);
 num1.getValue();
-num1.incValue(int increment = 1);
 num1.setValue(int value);
+num1.incValue(int increment = 1);
+num1.decValue(int decrement = 1);
 ```
 
 In event handler you can access the control, the window and the screen system:
@@ -51,6 +52,8 @@ btn1.setClickHandler([](TerminalButton * button) {
 
   // Create a new window on button's window's screen (THE screen)
   button->getWindow()->getScreen()->addWindow(new LedWindow(3));
+  // ... or shorter access
+  button->getScreen()->addWindow(new LedWindow(3));
 });
 ```
 
