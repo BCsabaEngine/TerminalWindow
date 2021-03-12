@@ -8,14 +8,6 @@
 class TerminalWindow;
 class TerminalScreen
 {
-  public:
-    TerminalScreen(String title);
-    ~TerminalScreen();
-    void addWindow(TerminalWindow* window);
-    void popWindow();
-    TerminalWindow* getTopWindow();
-    void redrawScreen();
-    void loop();
   private:
     BasicTerm* term = NULL;
     TerminalWindow* windows[WINDOW_MAX_COUNT];
@@ -25,6 +17,14 @@ class TerminalScreen
     void draw();
     String title = "";
     uint16_t key = 0;
+  public:
+    TerminalScreen(String title);
+    ~TerminalScreen();
+    void addWindow(TerminalWindow* window);
+    void popWindow();
+    TerminalWindow* getTopWindow();
+    void redrawScreen();
+    void loop();
 };
 
 #endif
