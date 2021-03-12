@@ -1,20 +1,35 @@
 #######################################
-# Syntax Coloring Map TerminalWindow
-#######################################
-
-#######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-TerminalWindow KEYWORD1 TerminalWindow
+TerminalWindow    KEYWORD1
+TerminalScreen    KEYWORD1
+TerminalButton    KEYWORD1
+TerminalCheckbox  KEYWORD1
+TerminalLabel     KEYWORD1
+TerminalNumEdit   KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-addWindow	KEYWORD2
-screen KEYWORD2
+addWindow	        KEYWORD2
+close	            KEYWORD2
+addLabel	        KEYWORD2
+setClickHandler	  KEYWORD2
+setChangeHandler  KEYWORD2
+setText	          KEYWORD2
+getValue	        KEYWORD2
+setValue	        KEYWORD2
+incValue	        KEYWORD2
+decValue        	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+hAlignLeft    LITERAL1
+hAlignCenter  LITERAL1
+hAlignRight   LITERAL1
+labelPosTop   LITERAL1
+labelPosLeft  LITERAL1
