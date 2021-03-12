@@ -17,6 +17,7 @@ class TerminalNumEdit: public TerminalControl {
     TerminalNumEdit(byte x, byte y, byte width);
     int getValue();
     void incValue(int increment = 1);
+    void decValue(int decrement = 1) { this->incValue(-1 * decrement); };
     void setValue(int value);
     void setMinMax(int min, int max);
     virtual void draw(BasicTerm* term, bool focused);
