@@ -31,10 +31,6 @@ MainWindow::MainWindow(): TerminalWindow(F("Main page")) {
       button->getWindow()->close();
   });
 
-  //  this->checkEnabled.addLabel("Kapcs: ", labelPosLeft);
-  //  this->numElapsed.addLabel("Szam: ", labelPosLeft);
-  //  this->numElapsed.setMinMax(1, 2000);
-
   this->addControl(&this->buttonServo);
   this->addControl(&this->buttonLed1);
   this->addControl(&this->buttonLed2);
