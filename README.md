@@ -13,6 +13,33 @@ Just connect your Arduino devices to the COM port, open a terminal window (putty
 
 You can read the settings from EEPROM or SD card and write them back there. This is your business.
 
+# Usable components
+
+You can use the following components with these parameters and methods:
+```
+TerminalButton btn1 = TerminalButton(byte x, byte y, byte width, String text);
+btn1.addLabel(String text, LabelPos labelpos);
+btn1.setClickHandler([](TerminalButton * button) { /*insert event code here */ });
+btn1.setText(String text);
+
+TerminalCheckbox cb1 = TerminalCheckbox(byte x, byte y, byte width, String ontext = "x", String offtext = " ");
+cb1.addLabel(String text, LabelPos labelpos);
+cb1.setClickHandler([](TerminalCheckbox * checkbox, bool value) { /*insert event code here */ });
+cb1.getValue();
+cb1.setValue(bool value);
+
+TerminalLabel label1 = TerminalLabel(byte x, byte y, byte width, String text, HAlign halign = hAlignLeft);
+label1.setText(String text);
+
+TerminalNumEdit num1 = TerminalNumEdit(byte x, byte y, byte width);
+num1.addLabel(String text, LabelPos labelpos);
+num1.setClickHandler([](TerminalNumEdit * numedit, int value) { /*insert event code here */ });
+num1.setMinMax(int min, int max);
+num1.getValue();
+num1.incValue(int increment = 1);
+num1.setValue(int value);
+```
+
 In the directory you can freely set how you allow the user to navigate: you can move with the up / down arrows or the TAB. Use the Space and Enter keys to set the checkboxes. Close the window with ESC. etc...
 ```
 #define WINDOW_CLOSE_ESC
