@@ -40,6 +40,20 @@ num1.incValue(int increment = 1);
 num1.setValue(int value);
 ```
 
+In event handler you can access the control, the window and the screen system:
+```
+btn1.setClickHandler([](TerminalButton * button) {
+  // Set button text
+  button.setText("New text");
+
+  // Close button's windows
+  button->getWindow()->close();
+
+  // Create a new window on button's window's screen (THE screen)
+  button->getWindow()->getScreen()->addWindow(new LedWindow(3));
+});
+```
+
 In the directory you can freely set how you allow the user to navigate: you can move with the up / down arrows or the TAB. Use the Space and Enter keys to set the checkboxes. Close the window with ESC. etc...
 ```
 #define WINDOW_CLOSE_ESC
