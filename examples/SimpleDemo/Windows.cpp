@@ -24,6 +24,7 @@ MainWindow::MainWindow(): TerminalWindow(F("Main page")) {
   this->buttonLed3.setClickHandler([](TerminalButton * button) {
     if (button->getWindow() && button->getWindow()->getScreen())
       button->getWindow()->getScreen()->addWindow(new LedWindow(3));
+    // or button->getScreen()->addWindow(new LedWindow(3));
   });
 
   this->buttonReboot.setClickHandler([](TerminalButton * button) {
@@ -43,6 +44,8 @@ ServoWindow::ServoWindow(): TerminalWindow(F("Servo settings")) {
   this->checkUsage.addLabel(F("Usage: "), labelPosLeft);
   this->checkEnabled.addLabel(F("Enabled: "), labelPosLeft);
   this->numElapsed.addLabel(F("Rotation: "), labelPosLeft);
+  this->numElapsed.setMinMax(0, 360);
+  this->numElapsed.decValue(2);
 
   this->addControl(&this->checkUsage);
   this->addControl(&this->checkEnabled);

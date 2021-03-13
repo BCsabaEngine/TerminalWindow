@@ -7,7 +7,6 @@ void setup() {
   Serial.begin(115200);
 
   screen.addWindow(new MainWindow());
-
 }
 
 void loop() {
