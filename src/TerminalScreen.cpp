@@ -49,6 +49,9 @@ void TerminalScreen::popWindow() {
     term->flush();
 
     delay(1500);
+    
+    //NVIC_SystemReset();
+    //STM32
 
     rebootFunc();
   }
