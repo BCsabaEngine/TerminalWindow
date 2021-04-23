@@ -1,19 +1,26 @@
 #include <TerminalScreen.h>
 #include "Windows.h"
 
-TerminalScreen screen("ModuleController/Lights");
+#define LED PC13
+
+TerminalScreen* screen;
 
 void setup() {
   Serial.begin(115200);
 
-  screen.addWindow(new MainWindow());
+  pinMode(LED, OUTPUT);
+
+  screen = new TerminalScreen("ModuleController/Lights");
+
+  screen->addWindow(new MainWindow());
 }
 
 void loop() {
   // Do anything
+  digitalWrite(LED, !digitalRead(PC13));
 
   // Call loop as possible to handle redraw and keyboard input
-  screen.loop();
+  screen->loop();
 
   delay(100);
 }
