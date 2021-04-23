@@ -122,7 +122,7 @@ class BasicTerm : public Stream {
       serial->print(F("H"));
     }
 
-    void show_cursor(boolean show) {
+    void show_cursor(bool show) {
       if (show) {
         serial->print(F("\x1b[?25h"));
       } else {
