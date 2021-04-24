@@ -105,6 +105,8 @@ void TerminalScreen::draw() {
     }
 
     this->getTopWindow()->draw(term);
+    
+    term->flush();
 
     this->lastRedraw = millis();
   }
@@ -121,8 +123,9 @@ void TerminalScreen::loop() {
 #endif
   }
 
-  if (this->needRedraw)
-    if (millis() - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS) {
+  unsigned long now = millis();
+  if (this->needRedraw || now - this->lastRedraw >= SCREEN_REDRAW_MAX_LATENCY_MS)
+    if (now - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS) {
       this->draw();
       this->needRedraw = false;
     }
