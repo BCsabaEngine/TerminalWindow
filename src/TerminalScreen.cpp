@@ -31,7 +31,13 @@ void TerminalScreen::addWindow(TerminalWindow* window) {
   this->redrawScreen();
 }
 
+#if defined(ARDUINO_AVR_NANO)
 void(* rebootFunc) (void) = 0;
+#endif
+
+#ifdef STM32_CORE_VERSION
+void rebootFunc() { NVIC_SystemReset(); }
+#endif
 
 void TerminalScreen::popWindow() {
   if (this->windowindex >= 0) {
@@ -50,9 +56,6 @@ void TerminalScreen::popWindow() {
 
     delay(1500);
     
-    //NVIC_SystemReset();
-    //STM32
-
     rebootFunc();
   }
 }
