@@ -5,6 +5,10 @@ If you're having trouble configuring your Arduino without uploading new code, he
 
 I often face the fact that I would have to set something up without modifying the Arduino sketch. I do not want to use a potentiometer or DIP switches for this. I simply enter the COM port and set up the data I need.
 
+# Platforms
+
+Sketches you did with TerminalWindow can run on Arduino Uno, Nano platforms and can also be compiled into Stm32F1/F4 where more memory is available (long strings uses a lot of memory).
+
 # Usage
 
 Just connect your Arduino devices to the COM port, open a terminal window (putty or SmarTTY) and use the keyboard to adjust the parameters. Utilizing the capabilities of the VT220, you can easily create simple parameterization windows for your Arduino devices. You can also create buttons, check boxes, number entry fields, and new windows in the user interface.
