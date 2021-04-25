@@ -14,6 +14,7 @@ class TerminalScreen
     int windowindex = -1;
     bool needRedraw = false;
     unsigned long lastRedraw = 0;
+    unsigned long lastKeyPress = 0;
     void draw();
     String title = "";
     uint16_t key = 0;

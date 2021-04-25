@@ -135,14 +135,17 @@ void TerminalScreen::draw()
     }
 
     this->getTopWindow()->draw(term);
-    
+
     term->flush();
 
     this->lastRedraw = millis();
   }
 }
 
-void TerminalScreen::loop() {
+void TerminalScreen::loop()
+{
+  unsigned long now = millis();
+
   this->key = this->term->get_key();
   if (this->key != -1)
   {
@@ -151,11 +154,21 @@ void TerminalScreen::loop() {
 #ifdef DEBUG
     this->redrawScreen();
 #endif
+
+    this->lastKeyPress = now;
   }
 
-  unsigned long now = millis();
+#ifdef AUTO_MAINWINDOW_SEC
+  if (now - this->lastKeyPress > AUTO_MAINWINDOW_SEC * 1000)
+  {
+    while (this->windowindex > 0)
+      this->popWindow();
+  }
+#endif
+
   if (this->needRedraw || now - this->lastRedraw >= SCREEN_REDRAW_MAX_LATENCY_MS)
-    if (now - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS) {
+    if (now - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS)
+    {
       this->draw();
       this->needRedraw = false;
     }
