@@ -139,7 +139,7 @@ class BasicTerm : public Stream {
       if (key == 0x1b) { /* escape sequence */
         when = millis();
         while (serial->available() < 2) {
-          if (((uint16_t) millis() - when) > 750) {
+          if (((uint16_t) millis() - when) > 250) {
             return key;
           }
         }
