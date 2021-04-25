@@ -206,9 +206,9 @@ class BasicTerm : public Stream {
     void set_color(uint8_t fg, uint8_t bg) {
       serial->print(F("\x1b["));
       serial->print(30 + fg);
-      serial->print(";");
+      serial->print(F(";"));
       serial->print(40 + bg);
-      serial->print("m");
+      serial->print(F("m"));
     }
 
     void set_fg_color(uint8_t fg) {
@@ -218,16 +218,16 @@ class BasicTerm : public Stream {
       }
       else
       {
-        serial->print("38;5;");
+        serial->print(F("38;5;"));
         serial->print(fg);
       }
-      serial->print("m");
+      serial->print(F("m"));
     }
 
     void set_bg_color(uint8_t bg) {
       serial->print(F("\x1b["));
       serial->print(40 + bg);
-      serial->print("m");
+      serial->print(F("m"));
     }
 
     void beep(void) {
