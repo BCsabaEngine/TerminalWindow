@@ -159,7 +159,7 @@ void TerminalScreen::loop()
   }
 
 #ifdef AUTO_MAINWINDOW_SEC
-  if (now - this->lastKeyPress > AUTO_MAINWINDOW_SEC * 1000)
+  if (now - this->lastKeyPress > 1000ULL * AUTO_MAINWINDOW_SEC)
   {
     while (this->windowindex > 0)
       this->popWindow();
