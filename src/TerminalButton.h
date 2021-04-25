@@ -1,7 +1,7 @@
 #ifndef TerminalButton_h
 #define TerminalButton_h
 
-#include "BasicTerm.h"
+#include "lib/BasicTerm.h"
 #include "TerminalControl.h"
 
 class TerminalButton;

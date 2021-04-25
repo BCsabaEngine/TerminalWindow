@@ -1,7 +1,7 @@
 #ifndef TerminalCheckbox_h
 #define TerminalCheckbox_h
 
-#include "BasicTerm.h"
+#include "lib/BasicTerm.h"
 #include "TerminalControl.h"
 
 class TerminalCheckbox;

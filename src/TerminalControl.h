@@ -1,7 +1,7 @@
 #ifndef TerminalControl_h
 #define TerminalControl_h
 
-#include "BasicTerm.h"
+#include "lib/BasicTerm.h"
 
 enum HAlign {
   hAlignLeft,

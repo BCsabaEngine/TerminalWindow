@@ -2,10 +2,10 @@
 #include "TerminalWindow.h"
 #ifdef DEBUG
   #if defined(ARDUINO_AVR_NANO)
-    #include <MemoryFree.h>
+    #include <lib/MemoryFree.h>
   #endif
   #if defined(STM32_CORE_VERSION)
-    #include <Stm32FreeMem.h>
+    #include <lib/Stm32FreeMem.h>
   #endif
 #endif
 

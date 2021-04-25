@@ -1,7 +1,7 @@
 #ifndef TerminalNumEdit_h
 #define TerminalNumEdit_h
 
-#include "BasicTerm.h"
+#include "lib/BasicTerm.h"
 #include "TerminalControl.h"
 
 class TerminalNumEdit;
