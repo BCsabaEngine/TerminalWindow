@@ -1,15 +1,16 @@
 #include "TerminalScreen.h"
 #include "TerminalWindow.h"
 #ifdef DEBUG
-  #if defined(ARDUINO_AVR_NANO)
-    #include <lib/MemoryFree.h>
-  #endif
-  #if defined(STM32_CORE_VERSION)
-    #include <lib/Stm32FreeMem.h>
-  #endif
+#if defined(ARDUINO_AVR_NANO)
+#include <lib/MemoryFree.h>
+#endif
+#if defined(STM32_CORE_VERSION)
+#include <lib/Stm32FreeMem.h>
+#endif
 #endif
 
-TerminalScreen::TerminalScreen(String title) {
+TerminalScreen::TerminalScreen(String title)
+{
   this->windowindex = -1;
   this->title = title;
 
@@ -18,14 +19,17 @@ TerminalScreen::TerminalScreen(String title) {
   this->term->show_cursor(false);
 }
 
-TerminalScreen::~TerminalScreen() {
-  if (this->term) {
+TerminalScreen::~TerminalScreen()
+{
+  if (this->term)
+  {
     delete this->term;
     this->term = NULL;
   }
 }
 
-void TerminalScreen::addWindow(TerminalWindow* window) {
+void TerminalScreen::addWindow(TerminalWindow *window)
+{
   window->setScreen(this);
 
   window->init();
@@ -37,15 +41,20 @@ void TerminalScreen::addWindow(TerminalWindow* window) {
 }
 
 #if defined(ARDUINO_AVR_NANO)
-void(* rebootFunc) (void) = 0;
+void (*rebootFunc)(void) = 0;
 #endif
 
 #ifdef STM32_CORE_VERSION
-void rebootFunc() { NVIC_SystemReset(); }
+void rebootFunc()
+{
+  NVIC_SystemReset();
+}
 #endif
 
-void TerminalScreen::popWindow() {
-  if (this->windowindex >= 0) {
+void TerminalScreen::popWindow()
+{
+  if (this->windowindex >= 0)
+  {
     delete this->windows[this->windowindex];
     this->windows[this->windowindex] = NULL;
     this->windowindex--;
@@ -53,36 +62,42 @@ void TerminalScreen::popWindow() {
     this->redrawScreen();
   }
 
-  if (this->windowindex < 0) {
+  if (this->windowindex < 0)
+  {
     term->cls();
     term->position(0, 0);
     term->print(F("No window, reboot..."));
     term->flush();
 
     delay(1500);
-    
+
     rebootFunc();
   }
 }
 
-TerminalWindow* TerminalScreen::getTopWindow() {
+TerminalWindow *TerminalScreen::getTopWindow()
+{
   if (this->windowindex >= 0)
     return this->windows[this->windowindex];
   return NULL;
 }
 
-void TerminalScreen::redrawScreen() {
+void TerminalScreen::redrawScreen()
+{
   this->needRedraw = true;
 }
 
-void TerminalScreen::draw() {
+void TerminalScreen::draw()
+{
   term->cls();
 
-  if (!this->getTopWindow()) {
+  if (!this->getTopWindow())
+  {
     term->position(0, 0);
     term->print(F("No window!"));
   }
-  else {
+  else
+  {
     term->position(0, 0);
     term->print(this->title);
     term->print(F(" ("));
@@ -90,14 +105,14 @@ void TerminalScreen::draw() {
     term->print(F(")"));
 
 #ifdef DEBUG
-  #if defined(ARDUINO_AVR_NANO)
+#if defined(ARDUINO_AVR_NANO)
     term->print(F(" F: "));
     term->print(String(freeMemory()).c_str());
-  #endif
-  #if defined(STM32_CORE_VERSION)
+#endif
+#if defined(STM32_CORE_VERSION)
     term->print(F(" F: "));
     term->print(String(getStm32FreeMem()).c_str());
-  #endif
+#endif
     term->print(F(" K: "));
     term->print(String(this->key, HEX).c_str());
 #endif
@@ -107,7 +122,8 @@ void TerminalScreen::draw() {
       term->print(F("="));
 
     term->position(2, 0);
-    for (byte i = 0; i <= this->windowindex; i++) {
+    for (byte i = 0; i <= this->windowindex; i++)
+    {
       if (i == this->windowindex)
         term->set_attribute(BT_BOLD);
 
