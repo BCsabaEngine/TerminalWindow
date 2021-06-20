@@ -53,11 +53,15 @@ btn1.setClickHandler([](TerminalButton * button) {
 
   // Close button's windows
   button->getWindow()->close();
+  // ... or shorter access
+  button->closeWindow();
 
   // Create a new window on button's window's screen (THE screen)
   button->getWindow()->getScreen()->addWindow(new LedWindow(3));
   // ... or shorter access
   button->getScreen()->addWindow(new LedWindow(3));
+  // ... or more shorter access
+  button->addWindow(new LedWindow(3));
 });
 ```
 

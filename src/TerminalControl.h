@@ -36,6 +36,8 @@ public:
   void addLabel(String text, LabelPos labelpos);
   TerminalScreen *getScreen();
   TerminalWindow *getWindow();
+  void closeWindow();
+  void addWindow(TerminalWindow *window);
   void setWindow(TerminalWindow *window);
   virtual void draw(BasicTerm *term, bool focused) {}
   virtual bool canFocus()

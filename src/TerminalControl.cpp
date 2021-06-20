@@ -67,6 +67,18 @@ TerminalScreen *TerminalControl::getScreen()
   return this->window->getScreen();
 }
 
+void TerminalControl::closeWindow()
+{
+  if (this->getWindow())
+    this->getWindow()->close();
+}
+
+void TerminalControl::addWindow(TerminalWindow *window)
+{
+  if (this->getWindow() && this->getWindow()->getScreen())
+    this->getWindow()->getScreen()->addWindow(window);
+}
+
 void TerminalControl::setWindow(TerminalWindow *window)
 {
   this->window = window;
