@@ -1,9 +1,7 @@
 #include "TerminalConfig.h"
 #include "TerminalNumEdit.h"
 
-TerminalNumEdit::TerminalNumEdit(byte x, byte y, byte width) : TerminalControl(x, y, width)
-{
-}
+TerminalNumEdit::TerminalNumEdit(byte x, byte y, byte width) : TerminalControl(x, y, width) {}
 
 int TerminalNumEdit::getValue()
 {
