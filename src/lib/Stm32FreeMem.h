@@ -12,15 +12,15 @@ extern char _Min_Stack_Size;
 
 static char *ramstart = &_sdata;
 static char *ramend = &_estack;
-static char *minSP = (char*)(ramend - &_Min_Stack_Size);
+static char *minSP = (char *)(ramend - &_Min_Stack_Size);
 
 int getStm32FreeMem()
 {
-  char *heapend = (char*)sbrk(0);
-  char * stack_ptr = (char*)__get_MSP();
+  char *heapend = (char *)sbrk(0);
+  char *stack_ptr = (char *)__get_MSP();
   struct mallinfo mi = mallinfo();
 
-/*
+  /*
   Serial.print("Total non-mmapped bytes (arena):       ");
   Serial.println(mi.arena);
   Serial.print("# of free chunks (ordblks):            ");
