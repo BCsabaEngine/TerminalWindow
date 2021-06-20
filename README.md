@@ -65,6 +65,15 @@ btn1.setClickHandler([](TerminalButton * button) {
 });
 ```
 
+You can define controls in .h files and make instances in .cpp. After you must add instances to control collection with window->AddControl(). You can create controls at run time dynamically. These controls must be added by window->AddRuntimeControl()
+```
+  TerminalButton* buttonDyn = new TerminalButton(1, 1, 12, F("Dynamic"));
+  buttonDyn->setClickHandler([](TerminalButton * button) {
+    button->closeWindow();
+  });
+  this->addRuntimeControl(buttonDyn);
+```
+
 In the directory you can freely set how you allow the user to navigate: you can move with the up / down arrows or the TAB. Use the Space and Enter keys to set the checkboxes. Close the window with ESC. etc...
 ```
 #define WINDOW_CLOSE_ESC

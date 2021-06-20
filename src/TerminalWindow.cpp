@@ -4,6 +4,11 @@ TerminalWindow::TerminalWindow(String title)
 {
   this->title = title;
 }
+TerminalWindow::~TerminalWindow()
+{
+  for (int i = 0; i < this->runtimecontrolcount; i++)
+    delete this->runtimecontrols[i];
+}
 
 void TerminalWindow::draw(BasicTerm *term)
 {
@@ -138,6 +143,16 @@ void TerminalWindow::setScreen(TerminalScreen *screen)
   this->screen = screen;
 }
 
+void TerminalWindow::addRuntimeControl(TerminalControl *control)
+{
+  if (this->runtimecontrolcount >= CONTROL_MAX_COUNT)
+    return;
+
+  this->addControl(control);
+
+  this->runtimecontrols[this->runtimecontrolcount] = control;
+  this->runtimecontrolcount++;
+}
 void TerminalWindow::addControl(TerminalControl *control)
 {
   if (this->controlcount >= CONTROL_MAX_COUNT)

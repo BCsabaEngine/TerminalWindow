@@ -12,15 +12,17 @@ class TerminalWindow
 {
 private:
   TerminalControl *controls[CONTROL_MAX_COUNT];
+  TerminalControl *runtimecontrols[CONTROL_MAX_COUNT];
   TerminalScreen *screen = NULL;
   int controlcount = 0;
+  int runtimecontrolcount = 0;
   int focusedIndex = -1;
   void prevFocus();
   void nextFocus();
 
 public:
   TerminalWindow(String title);
-  virtual ~TerminalWindow() {}
+  virtual ~TerminalWindow();
   String title;
   void draw(BasicTerm *term);
   void close();
@@ -29,6 +31,7 @@ public:
   TerminalScreen *getScreen();
   void setScreen(TerminalScreen *screen);
   void addControl(TerminalControl *control);
+  void addRuntimeControl(TerminalControl *control);
   void processKey(uint16_t key);
 };
 
