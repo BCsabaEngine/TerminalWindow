@@ -69,6 +69,11 @@ You can define controls in .h files and make instances in .cpp. After you must a
 ```
   TerminalButton* buttonDyn = new TerminalButton(1, 1, 12, F("Dynamic"));
   buttonDyn->setClickHandler([](TerminalButton * button) {
+    static int cnt = 1;
+
+    MyWindowType* myw = (MyWindowType*)button->getWindow();
+    myw->buttonOther.setText(String(++cnt) + String(". click"));
+
     button->closeWindow();
   });
   this->addRuntimeControl(buttonDyn);
