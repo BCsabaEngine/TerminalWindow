@@ -22,6 +22,7 @@ class TerminalControl
 {
 protected:
   TerminalWindow *window = NULL;
+  bool visible = true;
   byte x;
   byte y;
   byte width;
@@ -34,6 +35,10 @@ protected:
 public:
   TerminalControl(byte x, byte y, byte width);
   virtual ~TerminalControl() {}
+  bool getVisible();
+  void setVisible(bool visible);
+  void hide() { this->setVisible(false); }
+  void show() { this->setVisible(true); }
   void addLabel(String text, LabelPos labelpos);
   TerminalScreen *getScreen();
   TerminalWindow *getWindow();
@@ -41,14 +46,8 @@ public:
   void addWindow(TerminalWindow *window);
   void setWindow(TerminalWindow *window);
   virtual void draw(BasicTerm *term, bool focused) {}
-  virtual bool canFocus()
-  {
-    return false;
-  }
-  virtual bool handleKey(uint16_t key)
-  {
-    return false;
-  }
+  virtual bool canFocus() { return false; }
+  virtual bool handleKey(uint16_t key) { return false; }
 };
 
 #endif

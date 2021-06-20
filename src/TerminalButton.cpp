@@ -14,6 +14,9 @@ void TerminalButton::setText(String text)
 
 void TerminalButton::draw(BasicTerm *term, bool focused)
 {
+  if (!this->visible)
+    return;
+
   byte padsize = (this->width - this->text.length()) / 2;
 
   if (focused)

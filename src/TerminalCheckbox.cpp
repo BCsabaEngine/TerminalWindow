@@ -24,6 +24,9 @@ void TerminalCheckbox::setValue(bool value)
 
 void TerminalCheckbox::draw(BasicTerm *term, bool focused)
 {
+  if (!this->visible)
+    return;
+
   this->labelDraw(term);
 
   String text = "[" + (this->value ? this->ontext : this->offtext) + "]";

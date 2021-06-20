@@ -15,6 +15,9 @@ void TerminalLabel::setText(String text)
 
 void TerminalLabel::draw(BasicTerm *term, bool focused)
 {
+  if (!this->visible)
+    return;
+
   byte padsize = 0;
   switch (this->halign)
   {

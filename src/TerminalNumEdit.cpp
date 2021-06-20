@@ -41,6 +41,9 @@ void TerminalNumEdit::setMinMax(int min, int max)
 
 void TerminalNumEdit::draw(BasicTerm *term, bool focused)
 {
+  if (!this->visible)
+    return;
+
   this->labelDraw(term);
 
   String text = String(this->value);

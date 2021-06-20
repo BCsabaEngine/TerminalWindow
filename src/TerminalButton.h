@@ -17,15 +17,9 @@ public:
   virtual ~TerminalButton() {}
   void setText(String text);
   virtual void draw(BasicTerm *term, bool focused);
-  virtual bool canFocus()
-  {
-    return true;
-  }
+  virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
-  void setClickHandler(buttonFuncPtr clickhandler)
-  {
-    this->clickhandler = clickhandler;
-  }
+  void setClickHandler(buttonFuncPtr clickhandler) { this->clickhandler = clickhandler; }
 };
 
 #endif

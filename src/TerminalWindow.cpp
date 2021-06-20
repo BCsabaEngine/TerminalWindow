@@ -77,6 +77,13 @@ void TerminalWindow::nextFocus()
   }
 }
 
+void TerminalWindow::lostFocus(TerminalControl *control)
+{
+  if (this->focusedIndex >= 0)
+    if (this->controls[this->focusedIndex] == control)
+      this->nextFocus();
+}
+
 void TerminalWindow::processKey(uint16_t key)
 {
 

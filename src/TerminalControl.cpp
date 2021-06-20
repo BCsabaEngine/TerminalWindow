@@ -22,6 +22,16 @@ TerminalControl::TerminalControl(byte x, byte y, byte width)
   this->width = width;
 }
 
+bool TerminalControl::getVisible() { return this->visible; }
+
+void TerminalControl::setVisible(bool visible)
+{
+  this->visible = visible;
+  if (this->window)
+    this->window->lostFocus(this);
+  this->redrawScreen();
+}
+
 void TerminalControl::addLabel(String text, LabelPos pos)
 {
   this->labelText = text;
@@ -57,15 +67,9 @@ void TerminalControl::labelDraw(BasicTerm *term)
   term->print(text);
 }
 
-TerminalWindow *TerminalControl::getWindow()
-{
-  return this->window;
-}
+TerminalWindow *TerminalControl::getWindow() { return this->window; }
 
-TerminalScreen *TerminalControl::getScreen()
-{
-  return this->window->getScreen();
-}
+TerminalScreen *TerminalControl::getScreen() { return this->window->getScreen(); }
 
 void TerminalControl::closeWindow()
 {
@@ -79,7 +83,4 @@ void TerminalControl::addWindow(TerminalWindow *window)
     this->getWindow()->getScreen()->addWindow(window);
 }
 
-void TerminalControl::setWindow(TerminalWindow *window)
-{
-  this->window = window;
-}
+void TerminalControl::setWindow(TerminalWindow *window) { this->window = window; }

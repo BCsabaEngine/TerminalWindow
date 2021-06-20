@@ -24,15 +24,9 @@ public:
   void setValue(int value);
   void setMinMax(int min, int max);
   virtual void draw(BasicTerm *term, bool focused);
-  virtual bool canFocus()
-  {
-    return true;
-  }
+  virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
-  void setChangeHandler(numeditFuncPtr changehandler)
-  {
-    this->changehandler = changehandler;
-  }
+  void setChangeHandler(numeditFuncPtr changehandler) { this->changehandler = changehandler; }
 };
 
 #endif

@@ -20,15 +20,9 @@ public:
   bool getValue();
   void setValue(bool value);
   virtual void draw(BasicTerm *term, bool focused);
-  virtual bool canFocus()
-  {
-    return true;
-  }
+  virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
-  void setChangeHandler(checkboxFuncPtr changehandler)
-  {
-    this->changehandler = changehandler;
-  }
+  void setChangeHandler(checkboxFuncPtr changehandler) { this->changehandler = changehandler; }
 };
 
 #endif

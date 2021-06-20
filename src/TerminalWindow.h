@@ -33,6 +33,7 @@ public:
   void addControl(TerminalControl *control);
   void addRuntimeControl(TerminalControl *control);
   void processKey(uint16_t key);
+  void lostFocus(TerminalControl *control);
 };
 
 #endif
