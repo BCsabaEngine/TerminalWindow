@@ -53,7 +53,7 @@ void rebootFunc()
 
 void TerminalScreen::popWindow()
 {
-  if (this->windowindex >= 0)
+  if (this->windowindex > 0)
   {
     delete this->windows[this->windowindex];
     this->windows[this->windowindex] = NULL;
@@ -62,17 +62,17 @@ void TerminalScreen::popWindow()
     this->redrawScreen();
   }
 
-  if (this->windowindex < 0)
-  {
-    term->cls();
-    term->position(0, 0);
-    term->print(F("No window, reboot..."));
-    term->flush();
+  // if (this->windowindex < 0)
+  // {
+  //   term->cls();
+  //   term->position(0, 0);
+  //   term->print(F("No window, reboot..."));
+  //   term->flush();
 
-    delay(1500);
+  //   delay(1500);
 
-    rebootFunc();
-  }
+  //   rebootFunc();
+  // }
 }
 
 TerminalWindow *TerminalScreen::getTopWindow()
