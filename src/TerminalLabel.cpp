@@ -10,6 +10,7 @@ TerminalLabel::TerminalLabel(byte x, byte y, byte width, String text, HAlign hal
 void TerminalLabel::setText(String text)
 {
   this->text = this->shortString(text);
+  this->redrawScreen();
 }
 
 void TerminalLabel::draw(BasicTerm *term, bool focused)

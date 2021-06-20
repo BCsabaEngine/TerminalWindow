@@ -9,6 +9,7 @@ TerminalButton::TerminalButton(byte x, byte y, byte width, String text) : Termin
 void TerminalButton::setText(String text)
 {
   this->text = this->shortString(text);
+  this->redrawScreen();
 }
 
 void TerminalButton::draw(BasicTerm *term, bool focused)
