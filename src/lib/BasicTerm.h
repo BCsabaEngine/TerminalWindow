@@ -76,6 +76,7 @@ public:
   {
     serial = ser;
   }
+  virtual ~BasicTerm() {}
 
   virtual int available(void)
   {

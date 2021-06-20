@@ -45,9 +45,9 @@ public:
   void closeWindow();
   void addWindow(TerminalWindow *window);
   void setWindow(TerminalWindow *window);
-  virtual void draw(BasicTerm *term, bool focused) {}
-  virtual bool canFocus() { return false; }
-  virtual bool handleKey(uint16_t key) { return false; }
+  virtual void draw(BasicTerm *term, bool focused) = 0;
+  virtual bool canFocus() = 0;
+  virtual bool handleKey(uint16_t key) = 0;
 };
 
 #endif

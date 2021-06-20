@@ -47,10 +47,6 @@ void TerminalControl::labelDraw(BasicTerm *term)
   String text = this->labelText;
   switch (this->labelPos)
   {
-  case labelPosTop:
-    x = this->x;
-    y = this->y - 1;
-    break;
   case labelPosLeft:
     if (text.length() > this->x)
     {
@@ -60,6 +56,10 @@ void TerminalControl::labelDraw(BasicTerm *term)
     else
       x = this->x - text.length();
     y = this->y;
+    break;
+  default:
+    x = this->x;
+    y = this->y - 1;
     break;
   }
 

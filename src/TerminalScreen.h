@@ -17,7 +17,7 @@ private:
   unsigned long lastKeyPress = 0;
   void draw();
   String title = "";
-  uint16_t key = 0;
+  int16_t key = 0;
 
 public:
   TerminalScreen(String title);

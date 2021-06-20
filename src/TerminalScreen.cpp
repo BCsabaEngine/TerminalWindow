@@ -118,7 +118,7 @@ void TerminalScreen::draw()
 #endif
 
     term->position(1, 0);
-    for (int i = 0; i < this->title.length() + 14; i++)
+    for (byte i = 0; i < this->title.length() + 14; i++)
       term->print(F("="));
 
     term->position(2, 0);

@@ -27,8 +27,12 @@ void TerminalLabel::draw(BasicTerm *term, bool focused)
   case hAlignCenter:
     padsize = (this->width - this->text.length()) / 2;
     break;
+  default:
+    break;
   }
 
+  if (focused)
+    term->set_attribute(BT_NORMAL);
   term->set_attribute(BT_NORMAL);
 
   term->position(this->y, this->x + padsize);
