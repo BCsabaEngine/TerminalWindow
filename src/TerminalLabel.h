@@ -12,6 +12,7 @@ private:
 
 public:
   TerminalLabel(byte x, byte y, byte width, String text, HAlign halign = hAlignLeft);
+  virtual ~TerminalLabel() {}
   void setText(String text);
   virtual void draw(BasicTerm *term, bool focused);
 };

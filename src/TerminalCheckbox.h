@@ -16,6 +16,7 @@ private:
 
 public:
   TerminalCheckbox(byte x, byte y, byte width, String ontext = "x", String offtext = " ");
+  virtual ~TerminalCheckbox() {}
   bool getValue();
   void setValue(bool value);
   virtual void draw(BasicTerm *term, bool focused);

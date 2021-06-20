@@ -33,6 +33,7 @@ protected:
 
 public:
   TerminalControl(byte x, byte y, byte width);
+  virtual ~TerminalControl() {}
   void addLabel(String text, LabelPos labelpos);
   TerminalScreen *getScreen();
   TerminalWindow *getWindow();

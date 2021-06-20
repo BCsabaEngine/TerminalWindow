@@ -17,6 +17,7 @@ private:
 
 public:
   TerminalNumEdit(byte x, byte y, byte width);
+  virtual ~TerminalNumEdit() {}
   int getValue();
   void incValue(int increment = 1);
   void decValue(int decrement = 1) { this->incValue(-1 * decrement); };

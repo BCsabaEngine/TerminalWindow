@@ -14,6 +14,7 @@ private:
 
 public:
   TerminalButton(byte x, byte y, byte width, String text);
+  virtual ~TerminalButton() {}
   void setText(String text);
   virtual void draw(BasicTerm *term, bool focused);
   virtual bool canFocus()
