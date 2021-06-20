@@ -10,25 +10,26 @@ class TerminalScreen;
 class TerminalControl;
 class TerminalWindow
 {
-  private:
-    TerminalControl* controls[CONTROL_MAX_COUNT];
-    TerminalScreen* screen = NULL;
-    int controlcount = 0;
-    int focusedIndex = -1;
-    void prevFocus();
-    void nextFocus();
-  public:
-    TerminalWindow(String title);
-    virtual ~TerminalWindow() {}
-    String title;
-    void draw(BasicTerm* term);
-    void close();
-    void init();
-    void redrawScreen();
-    TerminalScreen* getScreen();
-    void setScreen(TerminalScreen* screen);
-    void addControl(TerminalControl* control);
-    void processKey(uint16_t key);
+private:
+  TerminalControl *controls[CONTROL_MAX_COUNT];
+  TerminalScreen *screen = NULL;
+  int controlcount = 0;
+  int focusedIndex = -1;
+  void prevFocus();
+  void nextFocus();
+
+public:
+  TerminalWindow(String title);
+  virtual ~TerminalWindow() {}
+  String title;
+  void draw(BasicTerm *term);
+  void close();
+  void init();
+  void redrawScreen();
+  TerminalScreen *getScreen();
+  void setScreen(TerminalScreen *screen);
+  void addControl(TerminalControl *control);
+  void processKey(uint16_t key);
 };
 
 #endif

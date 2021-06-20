@@ -1,41 +1,50 @@
 #include "TerminalWindow.h"
 
-TerminalWindow::TerminalWindow(String title) {
+TerminalWindow::TerminalWindow(String title)
+{
   this->title = title;
 }
 
-void TerminalWindow::draw(BasicTerm* term) {
+void TerminalWindow::draw(BasicTerm *term)
+{
   for (int i = 0; i < this->controlcount; i++)
     this->controls[i]->draw(term, this->focusedIndex == i);
 }
 
-void TerminalWindow::close() {
+void TerminalWindow::close()
+{
   if (this->screen)
     this->screen->popWindow();
 }
 
-void TerminalWindow::init() {
+void TerminalWindow::init()
+{
   if (this->focusedIndex == -1)
     for (int i = 0; i < this->controlcount; i++)
-      if (this->controls[i]->canFocus()) {
+      if (this->controls[i]->canFocus())
+      {
         this->focusedIndex = i;
         break;
       }
 }
 
-void TerminalWindow::redrawScreen() {
+void TerminalWindow::redrawScreen()
+{
   if (this->screen)
     this->screen->redrawScreen();
 }
 
-void TerminalWindow::prevFocus() {
+void TerminalWindow::prevFocus()
+{
   int actual = this->focusedIndex - 1;
 
-  while (actual != this->focusedIndex) {
+  while (actual != this->focusedIndex)
+  {
     if (actual < 0)
       actual = this->controlcount - 1;
 
-    if (this->controls[actual]->canFocus()) {
+    if (this->controls[actual]->canFocus())
+    {
       this->focusedIndex = actual;
       return;
     }
@@ -44,14 +53,17 @@ void TerminalWindow::prevFocus() {
   }
 }
 
-void TerminalWindow::nextFocus() {
+void TerminalWindow::nextFocus()
+{
   int actual = this->focusedIndex + 1;
 
-  while (actual != this->focusedIndex) {
+  while (actual != this->focusedIndex)
+  {
     if (actual >= this->controlcount)
       actual = 0;
 
-    if (this->controls[actual]->canFocus()) {
+    if (this->controls[actual]->canFocus())
+    {
       this->focusedIndex = actual;
       return;
     }
@@ -60,7 +72,8 @@ void TerminalWindow::nextFocus() {
   }
 }
 
-void TerminalWindow::processKey(uint16_t key) {
+void TerminalWindow::processKey(uint16_t key)
+{
 
 #ifdef WINDOW_CLOSE_ESC
   if (key == 0x1b)
@@ -75,55 +88,58 @@ void TerminalWindow::processKey(uint16_t key) {
 
   bool handled = this->controls[this->focusedIndex]->handleKey(key);
   if (!handled)
-    switch (key) {
+    switch (key)
+    {
 
 #ifdef CONTROL_MOVE_TAB
-      case 0x9:
-        this->nextFocus();
-        this->redrawScreen();
-        break;
+    case 0x9:
+      this->nextFocus();
+      this->redrawScreen();
+      break;
 #endif
 
 #ifdef CONTROL_MOVE_UP_DOWN
-      case BT_KEY_DOWN:
-        this->nextFocus();
-        this->redrawScreen();
-        break;
+    case BT_KEY_DOWN:
+      this->nextFocus();
+      this->redrawScreen();
+      break;
 #endif
 
 #ifdef CONTROL_MOVE_LEFT_RIGHT
-      case BT_KEY_RIGHT:
-        this->nextFocus();
-        this->redrawScreen();
-        break;
+    case BT_KEY_RIGHT:
+      this->nextFocus();
+      this->redrawScreen();
+      break;
 #endif
 
 #ifdef CONTROL_MOVE_UP_DOWN
-      case BT_KEY_UP:
-        this->prevFocus();
-        this->redrawScreen();
-        break;
+    case BT_KEY_UP:
+      this->prevFocus();
+      this->redrawScreen();
+      break;
 #endif
 
 #ifdef CONTROL_MOVE_LEFT_RIGHT
-      case BT_KEY_LEFT:
-        this->prevFocus();
-        this->redrawScreen();
-        break;
+    case BT_KEY_LEFT:
+      this->prevFocus();
+      this->redrawScreen();
+      break;
 #endif
-
     }
 }
 
-TerminalScreen* TerminalWindow::getScreen() {
+TerminalScreen *TerminalWindow::getScreen()
+{
   return this->screen;
 }
 
-void TerminalWindow::setScreen(TerminalScreen* screen) {
+void TerminalWindow::setScreen(TerminalScreen *screen)
+{
   this->screen = screen;
 }
 
-void TerminalWindow::addControl(TerminalControl* control) {
+void TerminalWindow::addControl(TerminalControl *control)
+{
   if (this->controlcount >= CONTROL_MAX_COUNT)
     return;
 

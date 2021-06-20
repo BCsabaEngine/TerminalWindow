@@ -1,16 +1,19 @@
 #include "TerminalConfig.h"
 #include "TerminalCheckbox.h"
 
-TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext): TerminalControl(x, y, width) {
+TerminalCheckbox::TerminalCheckbox(byte x, byte y, byte width, String ontext, String offtext) : TerminalControl(x, y, width)
+{
   this->offtext = this->shortString(offtext);
   this->ontext = this->shortString(ontext);
 }
 
-bool TerminalCheckbox::getValue() {
+bool TerminalCheckbox::getValue()
+{
   return this->value;
 }
 
-void TerminalCheckbox::setValue(bool value) {
+void TerminalCheckbox::setValue(bool value)
+{
   this->value = value;
 
   if (this->changehandler)
@@ -19,7 +22,8 @@ void TerminalCheckbox::setValue(bool value) {
   this->redrawScreen();
 }
 
-void TerminalCheckbox::draw(BasicTerm* term, bool focused) {
+void TerminalCheckbox::draw(BasicTerm *term, bool focused)
+{
   this->labelDraw(term);
 
   String text = "[" + (this->value ? this->ontext : this->offtext) + "]";
@@ -32,39 +36,40 @@ void TerminalCheckbox::draw(BasicTerm* term, bool focused) {
   term->set_attribute(BT_NORMAL);
 }
 
-bool TerminalCheckbox::handleKey(uint16_t key) {
-  switch (key) {
+bool TerminalCheckbox::handleKey(uint16_t key)
+{
+  switch (key)
+  {
 
 #ifdef CONTROL_CHECKBOX_SPACE
-    case ' ':
-      this->setValue(!this->getValue());
-      return true;
+  case ' ':
+    this->setValue(!this->getValue());
+    return true;
 #endif
 
 #ifdef CONTROL_CHECKBOX_ENTER
-    case 0xA:
-      this->setValue(!this->getValue());
-      return true;
+  case 0xA:
+    this->setValue(!this->getValue());
+    return true;
 #endif
 
 #ifdef CONTROL_CHECKBOX_UP_DOWN
-    case BT_KEY_UP:
-      this->setValue(true);
-      return true;
-    case BT_KEY_DOWN:
-      this->setValue(false);
-      return true;
+  case BT_KEY_UP:
+    this->setValue(true);
+    return true;
+  case BT_KEY_DOWN:
+    this->setValue(false);
+    return true;
 #endif
 
 #ifdef CONTROL_CHECKBOX_LEFT_RIGHT
-    case BT_KEY_LEFT:
-      this->setValue(false);
-      return true;
-    case BT_KEY_RIGHT:
-      this->setValue(true);
-      return true;
+  case BT_KEY_LEFT:
+    this->setValue(false);
+    return true;
+  case BT_KEY_RIGHT:
+    this->setValue(true);
+    return true;
 #endif
-
   }
   return false;
 }

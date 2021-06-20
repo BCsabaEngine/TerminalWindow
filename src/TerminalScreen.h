@@ -8,24 +8,25 @@
 class TerminalWindow;
 class TerminalScreen
 {
-  private:
-    BasicTerm* term = NULL;
-    TerminalWindow* windows[WINDOW_MAX_COUNT];
-    int windowindex = -1;
-    bool needRedraw = false;
-    unsigned long lastRedraw = 0;
-    unsigned long lastKeyPress = 0;
-    void draw();
-    String title = "";
-    uint16_t key = 0;
-  public:
-    TerminalScreen(String title);
-    ~TerminalScreen();
-    void addWindow(TerminalWindow* window);
-    void popWindow();
-    TerminalWindow* getTopWindow();
-    void redrawScreen();
-    void loop();
+private:
+  BasicTerm *term = NULL;
+  TerminalWindow *windows[WINDOW_MAX_COUNT];
+  int windowindex = -1;
+  bool needRedraw = false;
+  unsigned long lastRedraw = 0;
+  unsigned long lastKeyPress = 0;
+  void draw();
+  String title = "";
+  uint16_t key = 0;
+
+public:
+  TerminalScreen(String title);
+  ~TerminalScreen();
+  void addWindow(TerminalWindow *window);
+  void popWindow();
+  TerminalWindow *getTopWindow();
+  void redrawScreen();
+  void loop();
 };
 
 #endif
