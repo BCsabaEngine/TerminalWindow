@@ -166,6 +166,9 @@ void TerminalScreen::loop()
   }
 #endif
 
+  if (this->getTopWindow())
+    this->getTopWindow()->loop();
+
   if (this->needRedraw || now - this->lastRedraw >= SCREEN_REDRAW_MAX_LATENCY_MS)
     if (now - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS)
     {
