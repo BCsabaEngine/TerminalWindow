@@ -100,9 +100,9 @@ void TerminalScreen::draw()
   {
     term->position(0, 0);
     term->print(this->title);
-    term->print(F(" ("));
-    term->print(__DATE__);
-    term->print(F(")"));
+    // term->print(F(" ("));
+    // term->print(__DATE__);
+    // term->print(F(")"));
 
 #ifdef DEBUG
 #if defined(ARDUINO_AVR_NANO)
