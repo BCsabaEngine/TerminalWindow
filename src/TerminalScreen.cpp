@@ -1,18 +1,17 @@
 #include "TerminalScreen.h"
 #include "TerminalWindow.h"
-#ifdef DEBUG
 #if defined(ARDUINO_AVR_NANO)
 #include <lib/MemoryFree.h>
 #endif
 #if defined(STM32_CORE_VERSION)
 #include <lib/Stm32FreeMem.h>
 #endif
-#endif
 
-TerminalScreen::TerminalScreen(String title)
+TerminalScreen::TerminalScreen(String title, bool debug)
 {
   this->windowindex = -1;
   this->title = title;
+  this->debug = debug;
 
   this->term = new BasicTerm(&Serial);
   this->term->init();
@@ -100,23 +99,19 @@ void TerminalScreen::draw()
   {
     term->position(0, 0);
     term->print(this->title);
-    // term->print(F(" ("));
-    // term->print(__DATE__);
-    // term->print(F(")"));
 
-#ifdef DEBUG
+    if (this->debug)
+    {
+      term->print(F(" F: "));
 #if defined(ARDUINO_AVR_NANO)
-    term->print(F(" F: "));
-    term->print(String(freeMemory()).c_str());
+      term->print(String(freeMemory()).c_str());
 #endif
 #if defined(STM32_CORE_VERSION)
-    term->print(F(" F: "));
-    term->print(String(getStm32FreeMem()).c_str());
+      term->print(String(getStm32FreeMem()).c_str());
 #endif
-    term->print(F(" K: "));
-    term->print(String(this->key, HEX).c_str());
-#endif
-
+      term->print(F(" K: "));
+      term->print(String(this->key, HEX).c_str());
+    }
     term->position(1, 0);
     for (byte i = 0; i < this->title.length() + 14; i++)
       term->print(F("="));
@@ -151,9 +146,8 @@ void TerminalScreen::loop()
   {
     if (this->getTopWindow())
       this->getTopWindow()->processKey(this->key);
-#ifdef DEBUG
-    this->redrawScreen();
-#endif
+    if (this->debug)
+      this->redrawScreen();
 
     this->lastKeyPress = now;
   }

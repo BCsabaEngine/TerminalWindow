@@ -18,9 +18,10 @@ private:
   void draw();
   String title = "";
   int16_t key = 0;
+  bool debug = false;
 
 public:
-  TerminalScreen(String title);
+  TerminalScreen(String title, bool debug = false);
   ~TerminalScreen();
   void addWindow(TerminalWindow *window);
   void popWindow();
