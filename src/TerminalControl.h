@@ -31,15 +31,24 @@ protected:
   void labelDraw(BasicTerm *term);
   void redrawScreen();
   String shortString(String s);
+  uint8_t _tag8;
+  uint16_t _tag16;
+  uint32_t _tag32;
 
 public:
   TerminalControl(byte x, byte y, byte width);
   virtual ~TerminalControl() {}
-  bool getVisible();
+  bool getVisible() { return this->visible; }
   void setVisible(bool visible);
   void hide() { this->setVisible(false); }
   void show() { this->setVisible(true); }
   void addLabel(String text, LabelPos labelpos);
+  uint8_t tag8() { return this->_tag8; }
+  void tag8(uint8_t tag) { this->_tag8 = tag; }
+  uint16_t tag16() { return this->_tag16; }
+  void tag16(uint16_t tag) { this->_tag16 = tag; }
+  uint32_t tag32() { return this->_tag32; }
+  void tag32(uint32_t tag) { this->_tag32 = tag; }
   TerminalScreen *getScreen();
   TerminalWindow *getWindow();
   void closeWindow();

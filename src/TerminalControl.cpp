@@ -22,8 +22,6 @@ TerminalControl::TerminalControl(byte x, byte y, byte width)
   this->width = width;
 }
 
-bool TerminalControl::getVisible() { return this->visible; }
-
 void TerminalControl::setVisible(bool visible)
 {
   this->visible = visible;
