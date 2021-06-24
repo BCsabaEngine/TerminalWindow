@@ -113,7 +113,7 @@ void TerminalScreen::draw()
       term->print(String(this->key, HEX).c_str());
     }
     term->position(1, 0);
-    for (byte i = 0; i < this->title.length() + 14; i++)
+    for (byte i = 0; i < this->title.length(); i++)
       term->print(F("="));
 
     term->position(2, 0);
