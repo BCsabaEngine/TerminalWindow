@@ -15,6 +15,12 @@ public:
   virtual ~TerminalLabel() {}
   void setText(String text);
   virtual void draw(BasicTerm *term, bool focused);
+  virtual bool canFocus() { return false; }
+  virtual bool handleKey(uint16_t key)
+  {
+    (void)key;
+    return false;
+  }
 };
 
 #endif
