@@ -75,25 +75,25 @@ bool TerminalSelect::handleKey(uint16_t key)
   switch (key)
   {
 
-#ifdef CONTROL_CHECKBOX_SPACE
+#ifdef CONTROL_SELECT_SPACE
   case ' ':
     this->setNext(true);
     return true;
 #endif
 
-#ifdef CONTROL_CHECKBOX_ENTER
+#ifdef CONTROL_SELECT_ENTER
   case 0xA:
     this->setNext(true);
     return true;
 #endif
 
-#ifdef CONTROL_EDIT_UP_DOWN
+#ifdef CONTROL_SELECT_UP_DOWN
   case BT_KEY_UP:
     this->setNext();
     return true;
 #endif
 
-#ifdef CONTROL_EDIT_LEFT_RIGHT
+#ifdef CONTROL_SELECT_LEFT_RIGHT
   case BT_KEY_RIGHT:
     this->setNext();
     return true;
@@ -103,13 +103,13 @@ bool TerminalSelect::handleKey(uint16_t key)
     this->setNext();
     return true;
 
-#ifdef CONTROL_EDIT_UP_DOWN
+#ifdef CONTROL_SELECT_UP_DOWN
   case BT_KEY_DOWN:
     this->setPrev();
     return true;
 #endif
 
-#ifdef CONTROL_EDIT_LEFT_RIGHT
+#ifdef CONTROL_SELECT_LEFT_RIGHT
   case BT_KEY_LEFT:
     this->setPrev();
     return true;
