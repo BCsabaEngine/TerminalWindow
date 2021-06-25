@@ -83,6 +83,7 @@ bool TerminalSelect::handleKey(uint16_t key)
 
 #ifdef CONTROL_SELECT_ENTER
   case 0xA:
+  case 0xD:
     this->setNext(true);
     return true;
 #endif

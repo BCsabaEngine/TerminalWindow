@@ -52,6 +52,7 @@ bool TerminalButton::handleKey(uint16_t key)
 
 #ifdef CONTROL_BUTTON_ENTER
   case 0xA:
+  case 0xD:
     if (this->clickhandler)
       this->clickhandler(this);
     return true;

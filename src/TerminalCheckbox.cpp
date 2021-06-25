@@ -52,6 +52,7 @@ bool TerminalCheckbox::handleKey(uint16_t key)
 
 #ifdef CONTROL_CHECKBOX_ENTER
   case 0xA:
+  case 0xD:
     this->setValue(!this->getValue());
     return true;
 #endif
