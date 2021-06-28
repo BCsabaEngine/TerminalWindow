@@ -15,8 +15,8 @@ class BasicTerm : public Stream
 
 #define BT_NORMAL 0
 #define BT_BOLD 1
-#define BT_UNDERLINE 2
-#define BT_BLINK 4
+// #define BT_UNDERLINE 2
+// #define BT_BLINK 4
 #define BT_REVERSE 8
 
 #define BT_BLACK 0
@@ -27,8 +27,7 @@ class BasicTerm : public Stream
 #define BT_MAGENTA 5
 #define BT_CYAN 6
 #define BT_WHITE 7
-
-#define BT_H_YELLOW 11
+  // #define BT_H_YELLOW 11
 
 #define BT_KEY_UNKNOWN 0401
 #define BT_KEY_DOWN 0402
