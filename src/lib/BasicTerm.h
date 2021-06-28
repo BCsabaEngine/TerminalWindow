@@ -213,18 +213,18 @@ public:
     {
       serial->print(F("\x1b[7m"));
     }
-    if (attr & BT_UNDERLINE)
-    {
-      serial->print(F("\x1b[4m"));
-    }
+    // if (attr & BT_UNDERLINE)
+    // {
+    //   serial->print(F("\x1b[4m"));
+    // }
     if (attr & BT_BOLD)
     {
       serial->print(F("\x1b[1m"));
     }
-    if (attr & BT_BLINK)
-    {
-      serial->print(F("\x1b[5m"));
-    }
+    // if (attr & BT_BLINK)
+    // {
+    //   serial->print(F("\x1b[5m"));
+    // }
     if (attr == BT_NORMAL)
     {
       serial->print(F("\x1b[0m"));
