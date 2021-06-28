@@ -45,6 +45,9 @@ void TerminalNumEdit::draw(BasicTerm *term, bool focused)
   this->labelDraw(term);
 
   String text = String(this->value);
+  if (this->displaylookup)
+    this->displaylookup(this, value, text);
+
   while (text.length() < this->width)
     text = " " + text;
   text = "(" + text + ")";
@@ -63,13 +66,26 @@ bool TerminalNumEdit::handleKey(uint16_t key)
   switch (key)
   {
 
-#ifdef CONTROL_EDIT_UP_DOWN
+#ifdef CONTROL_NUM_SPACE
+  case ' ':
+    this->incValue(1);
+    return true;
+#endif
+
+#ifdef CONTROL_NUM_ENTER
+  case 0xA:
+  case 0xD:
+    this->incValue(1);
+    return true;
+#endif
+
+#ifdef CONTROL_NUM_UP_DOWN
   case BT_KEY_UP:
     this->incValue(1);
     return true;
 #endif
 
-#ifdef CONTROL_EDIT_LEFT_RIGHT
+#ifdef CONTROL_NUM_LEFT_RIGHT
   case BT_KEY_RIGHT:
     this->incValue(1);
     return true;
@@ -79,13 +95,13 @@ bool TerminalNumEdit::handleKey(uint16_t key)
     this->incValue(1);
     return true;
 
-#ifdef CONTROL_EDIT_UP_DOWN
+#ifdef CONTROL_NUM_UP_DOWN
   case BT_KEY_DOWN:
     this->incValue(-1);
     return true;
 #endif
 
-#ifdef CONTROL_EDIT_LEFT_RIGHT
+#ifdef CONTROL_NUM_LEFT_RIGHT
   case BT_KEY_LEFT:
     this->incValue(-1);
     return true;

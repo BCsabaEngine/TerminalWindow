@@ -6,6 +6,7 @@
 
 class TerminalNumEdit;
 typedef void (*numeditFuncPtr)(TerminalNumEdit *numedit, int value);
+typedef void (*numeditDisplayLookupFuncPtr)(TerminalNumEdit *numedit, int value, String &displaytext);
 class TerminalNumEdit : public TerminalControl
 {
 private:
@@ -14,6 +15,7 @@ private:
   int max = 1000;
   unsigned long lastKey = 0;
   numeditFuncPtr changehandler = NULL;
+  numeditDisplayLookupFuncPtr displaylookup = NULL;
 
 public:
   TerminalNumEdit(byte x, byte y, byte width);
@@ -27,6 +29,7 @@ public:
   virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
   void setChangeHandler(numeditFuncPtr changehandler) { this->changehandler = changehandler; }
+  void setDisplayLookup(numeditDisplayLookupFuncPtr displaylookup) { this->displaylookup = displaylookup; }
 };
 
 #endif
