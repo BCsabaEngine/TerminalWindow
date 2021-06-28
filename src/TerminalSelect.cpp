@@ -57,8 +57,9 @@ void TerminalSelect::draw(BasicTerm *term, bool focused)
   this->labelDraw(term);
 
   String text = this->items[this->index];
+  text.reserve(this->width + 2);
   while (text.length() < this->width)
-    text += " ";
+    text.concat(F(" "));
 #ifdef CONTROL_SELECT_DECORATOR
   text = "<" + text + ">";
 #endif

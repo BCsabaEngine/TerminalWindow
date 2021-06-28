@@ -47,12 +47,13 @@ void TerminalNumEdit::draw(BasicTerm *term, bool focused)
   String text = String(this->value);
   if (this->displaylookup)
     this->displaylookup(this, value, text);
+  text.reserve(this->width + 2);
 
   while (text.length() < this->width)
 #ifdef CONTROL_NUM_ALIGN_RIGHT
     text = " " + text;
 #else
-    text += " ";
+    text.concat(F(" "));
 #endif
 
 #ifdef CONTROL_NUM_DECORATOR

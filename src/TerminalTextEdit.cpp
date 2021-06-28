@@ -1,7 +1,10 @@
 #include "TerminalConfig.h"
 #include "TerminalTextEdit.h"
 
-TerminalTextEdit::TerminalTextEdit(byte x, byte y, byte width) : TerminalControl(x, y, width) {}
+TerminalTextEdit::TerminalTextEdit(byte x, byte y, byte width) : TerminalControl(x, y, width)
+{
+  this->value.reserve(width);
+}
 
 String TerminalTextEdit::getValue()
 {
@@ -32,8 +35,9 @@ void TerminalTextEdit::draw(BasicTerm *term, bool focused)
   this->labelDraw(term);
 
   String text = this->value;
+  text.reserve(this->width + 2);
   while (text.length() < this->width)
-    text += " ";
+    text.concat(F(" "));
 
 #ifdef CONTROL_TEXT_DECORATOR
   text = "(" + text + ")";
@@ -54,18 +58,15 @@ bool TerminalTextEdit::handleKey(uint16_t key)
   {
   case 0x7F:
     this->removeLastChar();
-    break;
+    return true;
   }
 
-  if (
-      key >= '0' && key <= '9' ||
-      key >= 'a' && key <= 'z' ||
-      key >= 'A' && key <= 'Z' ||
-      String("., ").indexOf(key) >= 0)
+  char ch = key & 0xFF;
+  if (this->allowedchars.indexOf(ch) >= 0)
   {
-    char ch = key & 0xFF;
     if (this->getValue().length() < this->width)
       this->setValue(this->getValue() + ch);
+    return true;
   }
   return false;
 }
