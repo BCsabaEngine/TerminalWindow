@@ -69,10 +69,10 @@ bool TerminalTextEdit::handleKey(uint16_t key)
 
   char ch = key & 0xFF;
   if (
-      this->allowed_lower_alpha && ch >= 'a' && ch <= 'z' ||
-      this->allowed_upper_alpha && ch >= 'A' && ch <= 'Z' ||
-      this->allowed_numbers && ch >= '0' && ch <= '9' ||
-      this->allowed_space && ch == 0x20 ||
+      (this->allowed_lower_alpha && ch >= 'a' && ch <= 'z') ||
+      (this->allowed_upper_alpha && ch >= 'A' && ch <= 'Z') ||
+      (this->allowed_numbers && ch >= '0' && ch <= '9') ||
+      (this->allowed_space && ch == 0x20) ||
       this->allowed_extrachars.indexOf(ch) >= 0)
   {
     this->appendChar(ch);
