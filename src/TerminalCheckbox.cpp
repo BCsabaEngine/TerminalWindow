@@ -29,7 +29,11 @@ void TerminalCheckbox::draw(BasicTerm *term, bool focused)
 
   this->labelDraw(term);
 
+#ifdef CONTROL_CHECKBOX_DECORATOR
   String text = "[" + (this->value ? this->ontext : this->offtext) + "]";
+#else
+  String text = this->value ? this->ontext : this->offtext;
+#endif
   if (focused)
     term->set_attribute(BT_REVERSE);
 

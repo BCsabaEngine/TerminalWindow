@@ -26,14 +26,18 @@ void TerminalButton::draw(BasicTerm *term, bool focused)
   for (byte i = 0; i < this->width - 1; i++)
     term->print(F(" "));
 
+#ifdef CONTROL_BUTTON_DECORATOR
   term->position(this->y, this->x);
   term->print(F("|"));
+#endif
 
   term->position(this->y, this->x + padsize);
   term->print(this->text);
 
+#ifdef CONTROL_BUTTON_DECORATOR
   term->position(this->y, this->x + this->width - 1);
   term->print(F("|"));
+#endif
 
   term->set_attribute(BT_NORMAL);
 }

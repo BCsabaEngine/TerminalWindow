@@ -59,7 +59,9 @@ void TerminalSelect::draw(BasicTerm *term, bool focused)
   String text = this->items[this->index];
   while (text.length() < this->width)
     text += " ";
+#ifdef CONTROL_SELECT_DECORATOR
   text = "<" + text + ">";
+#endif
 
   if (focused)
     term->set_attribute(BT_REVERSE);

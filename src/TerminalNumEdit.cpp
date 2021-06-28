@@ -49,8 +49,15 @@ void TerminalNumEdit::draw(BasicTerm *term, bool focused)
     this->displaylookup(this, value, text);
 
   while (text.length() < this->width)
+#ifdef CONTROL_NUM_ALIGN_RIGHT
     text = " " + text;
+#else
+    text += " ";
+#endif
+
+#ifdef CONTROL_NUM_DECORATOR
   text = "(" + text + ")";
+#endif
 
   if (focused)
     term->set_attribute(BT_REVERSE);
@@ -112,10 +119,10 @@ bool TerminalNumEdit::handleKey(uint16_t key)
     return true;
   }
 
-  if (key >= 0x30 && key <= 0x39)
+  if (key >= '0' && key <= '9')
   {
     int value = this->getValue();
-    if (millis() - this->lastKey > CONTROL_EDIT_MAXLATENCY_MS)
+    if (millis() - this->lastKey > CONTROL_NUM_MAXLATENCY_MS)
       value = 0;
     this->setValue(value * 10 + key - 0x30);
 
