@@ -30,10 +30,11 @@ void TerminalControl::setVisible(bool visible)
   this->redrawScreen();
 }
 
-void TerminalControl::addLabel(String text, LabelPos pos)
+void TerminalControl::addLabel(String text, LabelPos pos, uint8_t color)
 {
   this->labelText = text;
   this->labelPos = pos;
+  this->labelColor = color;
 }
 
 void TerminalControl::labelDraw(BasicTerm *term)
@@ -62,7 +63,9 @@ void TerminalControl::labelDraw(BasicTerm *term)
   }
 
   term->position(y, x);
+  term->set_fg_color(this->labelColor);
   term->print(text);
+  term->set_fg_color(BT_WHITE);
 }
 
 TerminalWindow *TerminalControl::getWindow() { return this->window; }

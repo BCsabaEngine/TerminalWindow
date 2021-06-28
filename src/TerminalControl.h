@@ -28,6 +28,7 @@ protected:
   byte width;
   String labelText;
   LabelPos labelPos;
+  uint8_t labelColor = BT_WHITE;
   void labelDraw(BasicTerm *term);
   void redrawScreen();
   String shortString(String s);
@@ -42,7 +43,7 @@ public:
   void setVisible(bool visible);
   void hide() { this->setVisible(false); }
   void show() { this->setVisible(true); }
-  void addLabel(String text, LabelPos labelpos);
+  void addLabel(String text, LabelPos labelpos, uint8_t color = BT_WHITE);
   uint8_t tag8() { return this->_tag8; }
   void tag8(uint8_t tag) { this->_tag8 = tag; }
   uint16_t tag16() { return this->_tag16; }
