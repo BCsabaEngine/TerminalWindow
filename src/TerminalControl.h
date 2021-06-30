@@ -50,6 +50,30 @@ public:
   void tag16(uint16_t tag) { this->_tag16 = tag; }
   uint32_t tag32() { return this->_tag32; }
   void tag32(uint32_t tag) { this->_tag32 = tag; }
+  byte GetX() { return this->x; }
+  byte GetY() { return this->y; }
+  void SetX(byte x) { this->x = x; }
+  void SetY(byte y) { this->y = y; }
+  void SetMinX(byte x)
+  {
+    if (this->x < x)
+      this->x = x;
+  }
+  void SetMinY(byte y)
+  {
+    if (this->y < y)
+      this->y = y;
+  }
+  void SetMaxX(byte x)
+  {
+    if (this->x > x)
+      this->x = x;
+  }
+  void SetMaxY(byte y)
+  {
+    if (this->y > y)
+      this->y = y;
+  }
   TerminalScreen *getScreen();
   TerminalWindow *getWindow();
   void closeWindow();
