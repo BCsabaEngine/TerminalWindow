@@ -33,8 +33,13 @@ void TerminalScreen::addWindow(TerminalWindow *window)
 
   window->init();
 
-  this->windowindex++;
-  this->windows[this->windowindex] = window;
+  if (this->windowindex < WINDOW_MAX_DEPTH)
+  {
+    this->windowindex++;
+    this->windows[this->windowindex] = window;
+  }
+  else
+    delete window;
 
   this->redrawScreen();
 }

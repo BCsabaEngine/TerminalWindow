@@ -10,7 +10,7 @@ class TerminalScreen
 {
 private:
   BasicTerm *term = NULL;
-  TerminalWindow *windows[WINDOW_MAX_COUNT];
+  TerminalWindow *windows[WINDOW_MAX_DEPTH];
   int windowindex = -1;
   bool needRedraw = false;
   unsigned long lastRedraw = 0;
