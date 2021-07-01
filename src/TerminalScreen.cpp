@@ -44,17 +44,6 @@ void TerminalScreen::addWindow(TerminalWindow *window)
   this->redrawScreen();
 }
 
-// #if defined(ARDUINO_AVR_NANO)
-// void (*rebootFunc)(void) = 0;
-// #endif
-
-// #ifdef STM32_CORE_VERSION
-// void rebootFunc()
-// {
-//   NVIC_SystemReset();
-// }
-// #endif
-
 void TerminalScreen::popWindow()
 {
   if (this->windowindex > 0)
@@ -65,18 +54,6 @@ void TerminalScreen::popWindow()
 
     this->redrawScreen();
   }
-
-  // if (this->windowindex < 0)
-  // {
-  //   term->cls();
-  //   term->position(0, 0);
-  //   term->print(F("No window, reboot..."));
-  //   term->flush();
-
-  //   delay(1500);
-
-  //   rebootFunc();
-  // }
 }
 
 TerminalWindow *TerminalScreen::getTopWindow()
