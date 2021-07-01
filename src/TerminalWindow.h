@@ -25,7 +25,7 @@ public:
   virtual ~TerminalWindow();
   String title;
   void draw(BasicTerm *term);
-  virtual void loop() {}
+  virtual void loop(){};
   void close();
   void init();
   void redrawScreen();

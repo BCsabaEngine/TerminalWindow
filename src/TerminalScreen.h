@@ -21,7 +21,7 @@ private:
   String title = "";
   int16_t key = 0;
   bool debug = false;
-  bool hasBorder() { return this->borderWidth && this->borderHeight; }
+  bool hasBorder() { return this->borderWidth > 0 && this->borderHeight > 0; }
 
 public:
   TerminalScreen(String title);

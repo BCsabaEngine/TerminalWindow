@@ -92,15 +92,15 @@ void TerminalScreen::draw()
       {
         term->position(y, 0);
         term->print(F("|"));
-        term->position(y, this->borderHeight - 1);
+        term->position(y, this->borderWidth - 1);
         term->print(F("|"));
       }
     }
 
     if (this->hasBorder())
-      term->position(0, 0);
+      term->position(0, 4);
     else
-      term->position(0, 2);
+      term->position(0, 0);
     term->print(this->title);
 
     if (this->debug)
@@ -123,8 +123,8 @@ void TerminalScreen::draw()
         term->print(F("="));
     }
 
-    if (!this->hasBorder())
-      term->position(2, 2);
+    if (this->hasBorder())
+      term->position(2, 4);
     else
       term->position(2, 0);
     for (byte i = 0; i <= this->windowindex; i++)
@@ -147,9 +147,12 @@ void TerminalScreen::draw()
   }
 }
 
+#ifdef WINDOW_LOOP_INTERVAL_MS
+uint32_t looplasttime = 0;
+#endif
 void TerminalScreen::loop()
 {
-  unsigned long now = millis();
+  uint32_t now = millis();
 
   this->key = this->term->get_key();
   if (this->key != -1)
@@ -170,8 +173,14 @@ void TerminalScreen::loop()
   }
 #endif
 
+#ifdef WINDOW_LOOP_INTERVAL_MS
   if (this->getTopWindow())
-    this->getTopWindow()->loop();
+    if (now - looplasttime > WINDOW_LOOP_INTERVAL_MS)
+    {
+      this->getTopWindow()->loop();
+      looplasttime = now;
+    }
+#endif
 
   if (this->needRedraw || now - this->lastRedraw >= SCREEN_REDRAW_MAX_LATENCY_MS)
     if (now - this->lastRedraw >= SCREEN_REDRAW_LATENCY_MS)
