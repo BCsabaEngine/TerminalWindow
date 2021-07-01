@@ -7,11 +7,10 @@
 #include <lib/Stm32FreeMem.h>
 #endif
 
-TerminalScreen::TerminalScreen(String title, bool debug)
+TerminalScreen::TerminalScreen(String title)
 {
   this->windowindex = -1;
   this->title = title;
-  this->debug = debug;
 
   this->term = new BasicTerm(&Serial);
   this->term->init();

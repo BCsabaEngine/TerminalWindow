@@ -24,8 +24,9 @@ private:
   bool hasBorder() { return this->borderWidth && this->borderHeight; }
 
 public:
-  TerminalScreen(String title, bool debug = false);
+  TerminalScreen(String title);
   ~TerminalScreen();
+  void setDebug(bool debug) { this->debug = debug; }
   void setBorder(uint8_t width, uint8_t height)
   {
     this->borderWidth = width;
