@@ -14,6 +14,7 @@ private:
   int windowindex = -1;
   uint8_t borderWidth = 0;
   uint8_t borderHeight = 0;
+  bool borderVertical = false;
   bool needRedraw = false;
   unsigned long lastRedraw = 0;
   unsigned long lastKeyPress = 0;
@@ -27,10 +28,11 @@ public:
   TerminalScreen(String title);
   ~TerminalScreen();
   void setDebug(bool debug) { this->debug = debug; }
-  void setBorder(uint8_t width, uint8_t height)
+  void setBorder(uint8_t width, uint8_t height, bool showvertical = false)
   {
     this->borderWidth = width;
     this->borderHeight = height;
+    this->borderVertical = showvertical;
   }
   void resetBorder() { this->borderWidth = this->borderHeight = 0; }
   void addWindow(TerminalWindow *window);

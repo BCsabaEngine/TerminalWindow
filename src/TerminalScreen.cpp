@@ -88,13 +88,14 @@ void TerminalScreen::draw()
       for (uint8_t x = 0; x < this->borderWidth; x++)
         term->print(F("-"));
 
-      for (uint8_t y = 1; y < this->borderHeight - 1; y++)
-      {
-        term->position(y, 0);
-        term->print(F("|"));
-        term->position(y, this->borderWidth - 1);
-        term->print(F("|"));
-      }
+      if (this->borderVertical)
+        for (uint8_t y = 1; y < this->borderHeight - 1; y++)
+        {
+          term->position(y, 0);
+          term->print(F("|"));
+          term->position(y, this->borderWidth - 1);
+          term->print(F("|"));
+        }
     }
 
     if (this->hasBorder())
