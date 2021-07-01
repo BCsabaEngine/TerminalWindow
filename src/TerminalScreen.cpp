@@ -79,7 +79,29 @@ void TerminalScreen::draw()
   }
   else
   {
-    term->position(0, 0);
+    if (this->hasBorder())
+    {
+      term->position(0, 0);
+      for (uint8_t x = 0; x < this->borderWidth; x++)
+        term->print(F("-"));
+
+      term->position(this->borderHeight - 1, 0);
+      for (uint8_t x = 0; x < this->borderWidth; x++)
+        term->print(F("-"));
+
+      for (uint8_t y = 1; y < this->borderHeight - 1; y++)
+      {
+        term->position(y, 0);
+        term->print(F("|"));
+        term->position(y, this->borderHeight - 1);
+        term->print(F("|"));
+      }
+    }
+
+    if (this->hasBorder())
+      term->position(0, 0);
+    else
+      term->position(0, 2);
     term->print(this->title);
 
     if (this->debug)
@@ -94,11 +116,18 @@ void TerminalScreen::draw()
       term->print(F(" K: "));
       term->print(String(this->key, HEX).c_str());
     }
-    term->position(1, 0);
-    for (byte i = 0; i < this->title.length(); i++)
-      term->print(F("="));
 
-    term->position(2, 0);
+    if (!this->hasBorder())
+    {
+      term->position(1, 0);
+      for (byte i = 0; i < this->title.length(); i++)
+        term->print(F("="));
+    }
+
+    if (!this->hasBorder())
+      term->position(2, 2);
+    else
+      term->position(2, 0);
     for (byte i = 0; i <= this->windowindex; i++)
     {
       if (i == this->windowindex)
