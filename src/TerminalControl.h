@@ -26,7 +26,7 @@ protected:
   byte x;
   byte y;
   byte width;
-  String labelText;
+  String labelText = "";
   LabelPos labelPos;
   uint8_t labelColor = BT_WHITE;
   void labelDraw(BasicTerm *term);
