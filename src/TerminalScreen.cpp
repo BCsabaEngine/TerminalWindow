@@ -7,10 +7,11 @@
 #include <lib/Stm32FreeMem.h>
 #endif
 
-TerminalScreen::TerminalScreen(String title)
+TerminalScreen::TerminalScreen(String title, String footer)
 {
   this->windowindex = -1;
   this->title = title;
+  this->footer = footer;
 
   this->term = new BasicTerm(&Serial);
   this->term->init();
@@ -123,6 +124,13 @@ void TerminalScreen::draw()
       for (byte i = 0; i < this->title.length(); i++)
         term->print(F("="));
     }
+
+    if (this->hasBorder())
+      if (this->footer && this->footer.length() && this->footer.length() > this->borderWidth)
+      {
+        term->position(this->borderHeight - 1, this->borderWidth - this->footer.length() - 4 - 1);
+        term->print(this->footer);
+      }
 
     if (this->hasBorder())
       term->position(2, 4);

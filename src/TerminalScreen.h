@@ -20,12 +20,13 @@ private:
   unsigned long lastKeyPress = 0;
   void draw();
   String title = "";
+  String footer = "";
   int16_t key = 0;
   bool debug = false;
   bool hasBorder() { return this->borderWidth > 0 && this->borderHeight > 0; }
 
 public:
-  TerminalScreen(String title);
+  TerminalScreen(String title, String footer = "");
   ~TerminalScreen();
   void setDebug(bool debug) { this->debug = debug; }
   void setBorder(uint8_t width, uint8_t height, bool showvertical = false)
@@ -35,6 +36,8 @@ public:
     this->borderVertical = showvertical;
   }
   void resetBorder() { this->borderWidth = this->borderHeight = 0; }
+  void setTitle(String title) { this->title = title; }
+  void setFooter(String footer) { this->footer = footer; }
   void addWindow(TerminalWindow *window);
   void popWindow();
   TerminalWindow *getTopWindow();
