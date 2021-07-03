@@ -18,6 +18,8 @@ enum LabelPos
 
 class TerminalWindow;
 class TerminalScreen;
+class TerminalControl;
+typedef void (*controlFuncPtr)(TerminalControl *numedit);
 class TerminalControl
 {
 protected:
@@ -35,6 +37,8 @@ protected:
   uint8_t _tag8;
   uint16_t _tag16;
   uint32_t _tag32;
+  controlFuncPtr enterhandler = NULL;
+  controlFuncPtr leavehandler = NULL;
 
 public:
   TerminalControl(byte x, byte y, byte width);
@@ -82,6 +86,18 @@ public:
   virtual void draw(BasicTerm *term, bool focused) = 0;
   virtual bool canFocus() = 0;
   virtual bool handleKey(uint16_t key) = 0;
+  void focusEnter()
+  {
+    if (this->enterhandler)
+      this->enterhandler(this);
+  }
+  void focusLeave()
+  {
+    if (this->leavehandler)
+      this->leavehandler(this);
+  }
+  void setEnterHandler(controlFuncPtr enterhandler) { this->enterhandler = enterhandler; }
+  void setLeaveHandler(controlFuncPtr leavehandler) { this->leavehandler = leavehandler; }
 };
 
 #endif

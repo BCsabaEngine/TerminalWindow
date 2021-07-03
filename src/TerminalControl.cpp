@@ -25,8 +25,9 @@ TerminalControl::TerminalControl(byte x, byte y, byte width)
 void TerminalControl::setVisible(bool visible)
 {
   this->visible = visible;
-  if (this->window)
-    this->window->lostFocus(this);
+  if (!this->visible)
+    if (this->window)
+      this->window->dropFocusIfThis(this);
   this->redrawScreen();
 }
 

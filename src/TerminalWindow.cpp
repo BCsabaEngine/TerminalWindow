@@ -50,7 +50,9 @@ void TerminalWindow::prevFocus()
 
     if (this->controls[actual]->canFocus())
     {
+      this->controls[this->focusedIndex]->focusLeave();
       this->focusedIndex = actual;
+      this->controls[this->focusedIndex]->focusEnter();
       return;
     }
 
@@ -69,7 +71,9 @@ void TerminalWindow::nextFocus()
 
     if (this->controls[actual]->canFocus())
     {
+      this->controls[this->focusedIndex]->focusLeave();
       this->focusedIndex = actual;
+      this->controls[this->focusedIndex]->focusEnter();
       return;
     }
 
@@ -77,7 +81,7 @@ void TerminalWindow::nextFocus()
   }
 }
 
-void TerminalWindow::lostFocus(TerminalControl *control)
+void TerminalWindow::dropFocusIfThis(TerminalControl *control)
 {
   if (this->focusedIndex >= 0)
     if (this->controls[this->focusedIndex] == control)
