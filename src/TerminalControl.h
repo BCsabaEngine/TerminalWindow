@@ -37,6 +37,7 @@ protected:
   uint8_t _tag8;
   uint16_t _tag16;
   uint32_t _tag32;
+  void *_tagp;
   controlFuncPtr enterhandler = NULL;
   controlFuncPtr leavehandler = NULL;
 
@@ -54,6 +55,8 @@ public:
   void tag16(uint16_t tag) { this->_tag16 = tag; }
   uint32_t tag32() { return this->_tag32; }
   void tag32(uint32_t tag) { this->_tag32 = tag; }
+  void *tagP() { return this->_tagp; }
+  void tagP(void *tag) { this->_tagp = tag; }
   byte GetX() { return this->x; }
   byte GetY() { return this->y; }
   void SetX(byte x) { this->x = x; }
