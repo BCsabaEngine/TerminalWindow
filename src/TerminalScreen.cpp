@@ -105,6 +105,7 @@ void TerminalScreen::draw()
       this->displaydebuginfo(debuginfo);
       if (debuginfo && debuginfo.length())
       {
+        term->print(F(" "));
         term->print(debuginfo.c_str());
         term->print(F(" "));
       }
@@ -120,7 +121,7 @@ void TerminalScreen::draw()
     }
 
     if (this->hasBorder())
-      if (this->footer && this->footer.length() && this->footer.length() > this->borderWidth)
+      if (this->footer && this->footer.length() && this->footer.length() < this->borderWidth)
       {
         term->position(this->borderHeight - 1, this->borderWidth - this->footer.length() - 4 - 1);
         term->print(this->footer);
