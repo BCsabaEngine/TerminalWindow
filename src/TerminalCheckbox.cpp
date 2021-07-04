@@ -14,10 +14,13 @@ bool TerminalCheckbox::getValue()
 
 void TerminalCheckbox::setValue(bool value)
 {
+  bool origvalue = this->value;
+
   this->value = value;
 
   if (this->changehandler)
-    this->changehandler(this, value);
+    if (origvalue != this->value)
+      this->changehandler(this, value);
 
   this->redrawScreen();
 }

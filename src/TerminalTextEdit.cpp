@@ -13,10 +13,13 @@ String TerminalTextEdit::getValue()
 
 void TerminalTextEdit::setValue(String value)
 {
+  String origvalue = this->value;
+
   this->value = value;
 
   if (this->changehandler)
-    this->changehandler(this, value);
+    if (origvalue != this->value)
+      this->changehandler(this, value);
 
   this->redrawScreen();
 }

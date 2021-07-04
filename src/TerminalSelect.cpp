@@ -17,6 +17,8 @@ int TerminalSelect::getIndex()
 
 void TerminalSelect::setIndex(int index, bool canunderoverflow)
 {
+  int origindex = this->index;
+
   this->index = index;
   if (canunderoverflow)
   {
@@ -34,7 +36,8 @@ void TerminalSelect::setIndex(int index, bool canunderoverflow)
   }
 
   if (this->changehandler)
-    this->changehandler(this, this->index);
+    if (origindex != this->index)
+      this->changehandler(this, this->index);
 
   this->redrawScreen();
 }
