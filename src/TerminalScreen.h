@@ -6,6 +6,7 @@
 #include "TerminalWindow.h"
 
 class TerminalWindow;
+typedef void (*screenDisplayDebugInfoFuncPtr)(String &debuginfo);
 class TerminalScreen
 {
 private:
@@ -24,11 +25,19 @@ private:
   int16_t key = 0;
   bool debug = false;
   bool hasBorder() { return this->borderWidth > 0 && this->borderHeight > 0; }
+  screenDisplayDebugInfoFuncPtr displaydebuginfo = NULL;
 
 public:
   TerminalScreen(String title, String footer = "");
   ~TerminalScreen();
-  void setDebug(bool debug) { this->debug = debug; }
+  void setDebug(bool debug, screenDisplayDebugInfoFuncPtr displaydebuginfo = NULL)
+  {
+    this->debug = debug;
+    if (debug)
+      this->displaydebuginfo = displaydebuginfo;
+    else
+      this->displaydebuginfo = NULL;
+  }
   void setBorder(uint8_t width, uint8_t height, bool showvertical = false)
   {
     this->borderWidth = width;

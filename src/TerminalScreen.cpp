@@ -1,11 +1,5 @@
 #include "TerminalScreen.h"
 #include "TerminalWindow.h"
-#if defined(ARDUINO_AVR_NANO)
-#include <lib/MemoryFree.h>
-#endif
-#if defined(STM32_CORE_VERSION)
-#include <lib/Stm32FreeMem.h>
-#endif
 
 TerminalScreen::TerminalScreen(String title, String footer)
 {
@@ -107,14 +101,14 @@ void TerminalScreen::draw()
 
     if (this->debug)
     {
-      term->print(F(" F: "));
-#if defined(ARDUINO_AVR_NANO)
-      term->print(String(freeMemory()).c_str());
-#endif
-#if defined(STM32_CORE_VERSION)
-      term->print(String(getStm32FreeMem()).c_str());
-#endif
-      term->print(F(" K: "));
+      String debuginfo = "";
+      this->displaydebuginfo(debuginfo);
+      if (debuginfo && debuginfo.length())
+      {
+        term->print(debuginfo.c_str());
+        term->print(F(" "));
+      }
+      term->print(F("K: "));
       term->print(String(this->key, HEX).c_str());
     }
 
