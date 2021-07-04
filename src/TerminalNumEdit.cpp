@@ -22,7 +22,7 @@ void TerminalNumEdit::setValue(int value)
     this->value = this->min;
 
   if (this->changehandler)
-    this->changehandler(this, value);
+    this->changehandler(this, this->value);
 
   this->redrawScreen();
 }
