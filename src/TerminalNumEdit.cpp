@@ -3,26 +3,51 @@
 
 TerminalNumEdit::TerminalNumEdit(byte x, byte y, byte width) : TerminalControl(x, y, width) {}
 
-int TerminalNumEdit::getValue()
-{
-  return this->value;
-}
+int TerminalNumEdit::getValue() { return this->value; }
 
-void TerminalNumEdit::incValue(int increment)
-{
-  this->setValue(this->getValue() + increment);
-}
+void TerminalNumEdit::incValue(int increment) { this->setValue(this->getValue() + increment, increment > 0); }
 
-void TerminalNumEdit::setValue(int value)
+void TerminalNumEdit::setValue(int value, bool scanup)
 {
+  int origvalue = this->value;
+
   this->value = value;
   if (this->value > this->max)
     this->value = this->max;
   if (this->value < this->min)
     this->value = this->min;
 
+  if (this->allowedvalue)
+  {
+    bool allowed = true;
+    this->allowedvalue(this, this->value, allowed);
+    while (!allowed)
+    {
+      if (scanup)
+      {
+        this->value++;
+        if (this->value > this->max)
+        {
+          this->value = this->max;
+          break;
+        }
+      }
+      else
+      {
+        this->value--;
+        if (this->value < this->min)
+        {
+          this->value = this->min;
+          break;
+        }
+      }
+      this->allowedvalue(this, this->value, allowed);
+    }
+  }
+
   if (this->changehandler)
-    this->changehandler(this, this->value);
+    if (origvalue != this->value)
+      this->changehandler(this, this->value);
 
   this->redrawScreen();
 }
