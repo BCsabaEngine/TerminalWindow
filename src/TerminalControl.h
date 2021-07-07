@@ -19,7 +19,7 @@ enum LabelPos
 class TerminalWindow;
 class TerminalScreen;
 class TerminalControl;
-typedef void (*controlFuncPtr)(TerminalControl *numedit);
+typedef void (*controlFuncPtr)(TerminalControl *control);
 class TerminalControl
 {
 protected:
