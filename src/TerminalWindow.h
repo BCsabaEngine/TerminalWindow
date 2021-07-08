@@ -35,6 +35,8 @@ public:
   void addRuntimeControl(TerminalControl *control);
   void processKey(uint16_t key);
   void dropFocusIfThis(TerminalControl *control);
+  void firstFocus();
+  void lastFocus();
 };
 
 #endif

@@ -81,6 +81,42 @@ void TerminalWindow::nextFocus()
   }
 }
 
+void TerminalWindow::firstFocus()
+{
+  int actual = 0;
+
+  while (actual < this->controlcount)
+  {
+    if (this->controls[actual]->canFocus())
+    {
+      this->controls[this->focusedIndex]->focusLeave();
+      this->focusedIndex = actual;
+      this->controls[this->focusedIndex]->focusEnter();
+      return;
+    }
+
+    actual++;
+  }
+}
+
+void TerminalWindow::lastFocus()
+{
+  int actual = this->controlcount - 1;
+
+  while (actual >= 0)
+  {
+    if (this->controls[actual]->canFocus())
+    {
+      this->controls[this->focusedIndex]->focusLeave();
+      this->focusedIndex = actual;
+      this->controls[this->focusedIndex]->focusEnter();
+      return;
+    }
+
+    actual--;
+  }
+}
+
 void TerminalWindow::dropFocusIfThis(TerminalControl *control)
 {
   if (this->focusedIndex >= 0)
