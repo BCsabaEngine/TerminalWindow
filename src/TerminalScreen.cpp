@@ -174,6 +174,8 @@ void TerminalScreen::loop()
   {
     while (this->windowindex > 0)
       this->popWindow();
+    if (this->getTopWindow())
+      this->getTopWindow()->firstFocus();
   }
 #endif
 
