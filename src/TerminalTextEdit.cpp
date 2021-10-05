@@ -65,6 +65,12 @@ bool TerminalTextEdit::handleKey(uint16_t key)
 {
   switch (key)
   {
+  case 0xA:
+  case 0xD:
+    if (this->enterkeyhandler)
+      this->enterkeyhandler(this);
+    return true;
+
   case 0x7F:
     this->removeLastChar();
     return true;

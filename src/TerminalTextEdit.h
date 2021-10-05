@@ -6,6 +6,7 @@
 
 class TerminalTextEdit;
 typedef void (*texteditFuncPtr)(TerminalTextEdit *textedit, String value);
+typedef void (*texteditEnterKeyFuncPtr)(TerminalTextEdit *textedit);
 class TerminalTextEdit : public TerminalControl
 {
 private:
@@ -13,6 +14,7 @@ private:
   void appendChar(char chr);
   void removeLastChar();
   texteditFuncPtr changehandler = NULL;
+  texteditEnterKeyFuncPtr enterkeyhandler = NULL;
   bool allowed_lower_alpha = true;
   bool allowed_upper_alpha = true;
   bool allowed_numbers = true;
@@ -29,6 +31,7 @@ public:
   virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
   void setChangeHandler(texteditFuncPtr changehandler) { this->changehandler = changehandler; }
+  void setEnterKeyHandler(texteditEnterKeyFuncPtr enterkeyhandler) { this->enterkeyhandler = enterkeyhandler; }
 };
 
 #endif
