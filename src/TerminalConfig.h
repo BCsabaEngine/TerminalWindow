@@ -42,4 +42,6 @@
 
 //#define CONTROL_TEXT_DECORATOR
 
+#define CONTROL_LABELML_MAX_HEIGHT 20
+
 #endif
