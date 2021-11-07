@@ -145,6 +145,8 @@ void TerminalScreen::draw()
 
     this->getTopWindow()->draw(term);
 
+    term->position(0, 0);
+
     term->flush();
 
     this->lastRedraw = millis();
