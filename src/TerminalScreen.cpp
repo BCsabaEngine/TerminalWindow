@@ -109,8 +109,8 @@ void TerminalScreen::draw()
         term->print(debuginfo.c_str());
         term->print(F(" "));
       }
-      term->print(F("K: "));
-      term->print(String(this->key, HEX).c_str());
+      // term->print(F("K: "));
+      // term->print(String(this->key, HEX).c_str());
     }
 
     if (!this->hasBorder())
