@@ -157,7 +157,7 @@ public:
       when = millis();
       while (serial->available() < 2)
       {
-        if (((uint16_t)millis() - when) > 250)
+        if (((uint16_t)millis() - when) > 75)
         {
           return key;
         }
