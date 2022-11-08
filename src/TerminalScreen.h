@@ -49,6 +49,7 @@ public:
   void setFooter(String footer) { this->footer = footer; }
   void addWindow(TerminalWindow *window);
   void popWindow();
+  void showMainPage();
   TerminalWindow *getTopWindow();
   void redrawScreen();
   void loop();

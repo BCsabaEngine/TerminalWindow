@@ -50,6 +50,14 @@ void TerminalScreen::popWindow()
   }
 }
 
+void TerminalScreen::showMainPage()
+{
+  while (this->windowindex > 0)
+    this->popWindow();
+  if (this->getTopWindow())
+    this->getTopWindow()->firstFocus();
+}
+
 TerminalWindow *TerminalScreen::getTopWindow()
 {
   if (this->windowindex >= 0)
@@ -173,12 +181,7 @@ void TerminalScreen::loop()
 
 #ifdef AUTO_MAINWINDOW_SEC
   if (now - this->lastKeyPress > 1000ULL * AUTO_MAINWINDOW_SEC)
-  {
-    while (this->windowindex > 0)
-      this->popWindow();
-    if (this->getTopWindow())
-      this->getTopWindow()->firstFocus();
-  }
+    this->showMainPage();
 #endif
 
 #ifdef WINDOW_LOOP_INTERVAL_MS
