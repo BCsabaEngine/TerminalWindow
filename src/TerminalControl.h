@@ -89,6 +89,8 @@ public:
   virtual void draw(BasicTerm *term, bool focused) = 0;
   virtual bool canFocus() = 0;
   virtual bool handleKey(uint16_t key) = 0;
+  virtual bool handleShortcut(uint16_t shortcut) = 0;
+  void focus();
   void focusEnter()
   {
     if (this->enterhandler)

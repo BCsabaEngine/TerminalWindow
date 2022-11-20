@@ -1,9 +1,10 @@
 #include "TerminalConfig.h"
 #include "TerminalButton.h"
 
-TerminalButton::TerminalButton(byte x, byte y, byte width, String text) : TerminalControl(x, y, width)
+TerminalButton::TerminalButton(byte x, byte y, byte width, String text, uint16_t shortcut) : TerminalControl(x, y, width)
 {
   this->setText(text);
+  this->shortcut = shortcut;
 }
 
 void TerminalButton::setText(String text)
@@ -61,6 +62,18 @@ bool TerminalButton::handleKey(uint16_t key)
       this->clickhandler(this);
     return true;
 #endif
+  }
+  return false;
+}
+
+bool TerminalButton::handleShortcut(uint16_t shortcut)
+{
+  if (this->shortcut == shortcut)
+  {
+    this->focus();
+    if (this->clickhandler)
+      this->clickhandler(this);
+    return true;
   }
   return false;
 }

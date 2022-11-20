@@ -37,6 +37,8 @@ public:
   void dropFocusIfThis(TerminalControl *control);
   void firstFocus();
   void lastFocus();
+  void focusAt(int index);
+  void focusControl(TerminalControl *control);
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "TerminalWindow.h"
 
+#include "TerminalButton.h"
+
 TerminalWindow::TerminalWindow(String title)
 {
   this->title = title;
@@ -117,6 +119,26 @@ void TerminalWindow::lastFocus()
   }
 }
 
+void TerminalWindow::focusAt(int index)
+{
+  if (this->controls[index]->canFocus())
+  {
+    this->controls[this->focusedIndex]->focusLeave();
+    this->focusedIndex = index;
+    this->controls[this->focusedIndex]->focusEnter();
+  }
+}
+
+void TerminalWindow::focusControl(TerminalControl *control)
+{
+  for (uint8_t i = 0; i < this->controlcount; i++)
+    if (this->controls[i] == control)
+    {
+      this->focusAt(i);
+      break;
+    }
+}
+
 void TerminalWindow::dropFocusIfThis(TerminalControl *control)
 {
   if (this->focusedIndex >= 0)
@@ -139,6 +161,15 @@ void TerminalWindow::processKey(uint16_t key)
     return;
 
   bool handled = this->controls[this->focusedIndex]->handleKey(key);
+
+  if (!handled)
+    for (uint8_t i = 0; i < this->controlcount; i++)
+      if (this->controls[i]->handleShortcut(key))
+      {
+        handled = true;
+        break;
+      }
+
   if (!handled)
     switch (key)
     {

@@ -22,6 +22,11 @@ public:
   virtual void draw(BasicTerm *term, bool focused);
   virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
+  virtual bool handleShortcut(uint16_t shortcut)
+  {
+    (void)shortcut;
+    return false;
+  }
   void setChangeHandler(checkboxFuncPtr changehandler) { this->changehandler = changehandler; }
 };
 

@@ -30,6 +30,11 @@ public:
   virtual void draw(BasicTerm *term, bool focused);
   virtual bool canFocus() { return this->visible; }
   virtual bool handleKey(uint16_t key);
+  virtual bool handleShortcut(uint16_t shortcut)
+  {
+    (void)shortcut;
+    return false;
+  }
   void setChangeHandler(numeditFuncPtr changehandler) { this->changehandler = changehandler; }
   void setDisplayLookup(numeditDisplayLookupFuncPtr displaylookup) { this->displaylookup = displaylookup; }
   void setAllowedValue(numeditAllowedValueFuncPtr allowedvalue) { this->allowedvalue = allowedvalue; }

@@ -86,3 +86,9 @@ void TerminalControl::addWindow(TerminalWindow *window)
 }
 
 void TerminalControl::setWindow(TerminalWindow *window) { this->window = window; }
+
+void TerminalControl::focus()
+{
+  if (this->getWindow())
+    this->getWindow()->focusControl(this);
+}

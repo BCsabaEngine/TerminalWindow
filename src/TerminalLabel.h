@@ -23,6 +23,11 @@ public:
     (void)key;
     return false;
   }
+  virtual bool handleShortcut(uint16_t shortcut)
+  {
+    (void)shortcut;
+    return false;
+  }
 };
 
 #endif
