@@ -7,6 +7,40 @@ int TerminalNumEdit::getValue() { return this->value; }
 
 void TerminalNumEdit::incValue(int increment) { this->setValue(this->getValue() + increment, increment > 0); }
 
+int TerminalNumEdit::findMinAllowedValue()
+{
+  if (!this->allowedvalue)
+    return this->min;
+
+  int result = this->min;
+
+  bool allowed = true;
+  this->allowedvalue(this, result, allowed);
+  while (!allowed && result < this->max)
+  {
+    result++;
+    this->allowedvalue(this, result, allowed);
+  }
+  return result;
+}
+
+int TerminalNumEdit::findMaxAllowedValue()
+{
+  if (!this->allowedvalue)
+    return this->max;
+
+  int result = this->max;
+
+  bool allowed = true;
+  this->allowedvalue(this, result, allowed);
+  while (!allowed && result > this->min)
+  {
+    result--;
+    this->allowedvalue(this, result, allowed);
+  }
+  return result;
+}
+
 void TerminalNumEdit::setValue(int value, bool scanup)
 {
   int origvalue = this->value;
@@ -28,7 +62,7 @@ void TerminalNumEdit::setValue(int value, bool scanup)
         this->value++;
         if (this->value > this->max)
         {
-          this->value = this->max;
+          this->value = this->findMaxAllowedValue();
           break;
         }
       }
@@ -37,7 +71,7 @@ void TerminalNumEdit::setValue(int value, bool scanup)
         this->value--;
         if (this->value < this->min)
         {
-          this->value = this->min;
+          this->value = this->findMinAllowedValue();
           break;
         }
       }

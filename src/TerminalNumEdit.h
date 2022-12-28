@@ -18,6 +18,8 @@ private:
   numeditFuncPtr changehandler = NULL;
   numeditDisplayLookupFuncPtr displaylookup = NULL;
   numeditAllowedValueFuncPtr allowedvalue = NULL;
+  int findMinAllowedValue();
+  int findMaxAllowedValue();
 
 public:
   TerminalNumEdit(byte x, byte y, byte width);
