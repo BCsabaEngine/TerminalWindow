@@ -1,6 +1,8 @@
 #include "TerminalConfig.h"
 #include "TerminalNumEdit.h"
 
+#define MAX_ITERATION 255
+
 TerminalNumEdit::TerminalNumEdit(byte x, byte y, byte width) : TerminalControl(x, y, width) {}
 
 int TerminalNumEdit::getValue() { return this->value; }
@@ -14,9 +16,10 @@ int TerminalNumEdit::findMinAllowedValue()
 
   int result = this->min;
 
+  int maxIteration = MAX_ITERATION;
   bool allowed = true;
   this->allowedvalue(this, result, allowed);
-  while (!allowed && result < this->max)
+  while (!allowed && result < this->max && --maxIteration)
   {
     result++;
     this->allowedvalue(this, result, allowed);
@@ -31,9 +34,10 @@ int TerminalNumEdit::findMaxAllowedValue()
 
   int result = this->max;
 
+  int maxIteration = MAX_ITERATION;
   bool allowed = true;
   this->allowedvalue(this, result, allowed);
-  while (!allowed && result > this->min)
+  while (!allowed && result > this->min && --maxIteration)
   {
     result--;
     this->allowedvalue(this, result, allowed);
@@ -53,9 +57,10 @@ void TerminalNumEdit::setValue(int value, bool scanup)
 
   if (this->allowedvalue)
   {
+    int maxIteration = MAX_ITERATION;
     bool allowed = true;
     this->allowedvalue(this, this->value, allowed);
-    while (!allowed)
+    while (!allowed && --maxIteration)
     {
       if (scanup)
       {
