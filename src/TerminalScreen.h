@@ -28,7 +28,7 @@ private:
   screenDisplayDebugInfoFuncPtr displaydebuginfo = NULL;
 
 public:
-  TerminalScreen(String title, String footer = "");
+  TerminalScreen(Stream *stream, String title, String footer = "");
   ~TerminalScreen();
   void setDebug(bool debug, screenDisplayDebugInfoFuncPtr displaydebuginfo = NULL)
   {

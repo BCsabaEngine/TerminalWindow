@@ -1,13 +1,13 @@
 #include "TerminalScreen.h"
 #include "TerminalWindow.h"
 
-TerminalScreen::TerminalScreen(String title, String footer)
+TerminalScreen::TerminalScreen(Stream *stream, String title, String footer)
 {
   this->windowindex = -1;
   this->title = title;
   this->footer = footer;
 
-  this->term = new BasicTerm(&Serial);
+  this->term = new BasicTerm(stream);
   this->term->init();
   this->term->show_cursor(false);
 }
