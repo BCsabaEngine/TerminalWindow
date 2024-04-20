@@ -1,11 +1,13 @@
 #include "TerminalScreen.h"
 #include "TerminalWindow.h"
 
-TerminalScreen::TerminalScreen(Stream *stream, String title, String footer)
+TerminalScreen::TerminalScreen(Stream *stream, bool flush, String title, String footer)
 {
   this->windowindex = -1;
   this->title = title;
   this->footer = footer;
+
+  this->flush = flush;
 
   this->term = new BasicTerm(stream);
   this->term->init();
@@ -155,7 +157,8 @@ void TerminalScreen::draw()
 
     term->position(0, 0);
 
-    term->flush();
+    if (this->flush)
+      term->flush();
 
     this->lastRedraw = millis();
   }
