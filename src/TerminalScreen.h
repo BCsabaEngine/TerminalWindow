@@ -11,6 +11,7 @@ class TerminalScreen
 {
 private:
   BasicTerm *term = NULL;
+  bool flash;
   TerminalWindow *windows[WINDOW_MAX_DEPTH];
   int windowindex = -1;
   uint8_t borderWidth = 0;
