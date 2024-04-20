@@ -54,6 +54,8 @@ public:
   TerminalWindow *getTopWindow();
   void redrawScreen();
   void loop();
+  void clear();
+  void exit();
 };
 
 #endif

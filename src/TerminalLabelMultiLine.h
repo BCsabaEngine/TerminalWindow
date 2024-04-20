@@ -15,6 +15,7 @@ private:
 public:
   TerminalLabelMultiLine(byte x, byte y, byte width, byte height, uint8_t color = BT_WHITE);
   virtual ~TerminalLabelMultiLine() {}
+  byte getHeight() { return this->height; }
   void clearLines();
   void setLines(String lines[], int linecount);
   void setColor(uint8_t color);

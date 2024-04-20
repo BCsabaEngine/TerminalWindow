@@ -42,7 +42,7 @@ void TerminalScreen::addWindow(TerminalWindow *window)
 
 void TerminalScreen::popWindow()
 {
-  if (this->windowindex > 0)
+  if (this->windowindex >= 0)
   {
     delete this->windows[this->windowindex];
     this->windows[this->windowindex] = NULL;
@@ -72,96 +72,106 @@ void TerminalScreen::redrawScreen()
   this->needRedraw = true;
 }
 
-void TerminalScreen::draw()
+void TerminalScreen::exit()
+{
+  while (this->windowindex >= 0)
+    this->popWindow();
+  this->clear();
+}
+
+void TerminalScreen::clear()
 {
   term->cls();
+  term->position(0, 0);
 
+  if (this->flush)
+    term->flush();
+}
+
+void TerminalScreen::draw()
+{
   if (!this->getTopWindow())
+    return;
+
+  term->cls();
+  if (this->hasBorder())
   {
     term->position(0, 0);
-    term->print(F("No window!"));
+    for (uint8_t x = 0; x < this->borderWidth; x++)
+      term->print(F("-"));
+
+    term->position(this->borderHeight - 1, 0);
+    for (uint8_t x = 0; x < this->borderWidth; x++)
+      term->print(F("-"));
+
+    if (this->borderVertical)
+      for (uint8_t y = 1; y < this->borderHeight - 1; y++)
+      {
+        term->position(y, 0);
+        term->print(F("|"));
+        term->position(y, this->borderWidth - 1);
+        term->print(F("|"));
+      }
   }
+
+  if (this->hasBorder())
+    term->position(0, 4);
   else
-  {
-    if (this->hasBorder())
-    {
-      term->position(0, 0);
-      for (uint8_t x = 0; x < this->borderWidth; x++)
-        term->print(F("-"));
-
-      term->position(this->borderHeight - 1, 0);
-      for (uint8_t x = 0; x < this->borderWidth; x++)
-        term->print(F("-"));
-
-      if (this->borderVertical)
-        for (uint8_t y = 1; y < this->borderHeight - 1; y++)
-        {
-          term->position(y, 0);
-          term->print(F("|"));
-          term->position(y, this->borderWidth - 1);
-          term->print(F("|"));
-        }
-    }
-
-    if (this->hasBorder())
-      term->position(0, 4);
-    else
-      term->position(0, 0);
-    term->print(this->title);
-
-    if (this->debug)
-    {
-      String debuginfo = "";
-      this->displaydebuginfo(debuginfo);
-      if (debuginfo && debuginfo.length())
-      {
-        term->print(F(" "));
-        term->print(debuginfo.c_str());
-        term->print(F(" "));
-      }
-      // term->print(F("K: "));
-      // term->print(String(this->key, HEX).c_str());
-    }
-
-    if (!this->hasBorder())
-    {
-      term->position(1, 0);
-      for (byte i = 0; i < this->title.length(); i++)
-        term->print(F("="));
-    }
-
-    if (this->hasBorder())
-      if (this->footer && this->footer.length() && this->footer.length() < this->borderWidth)
-      {
-        term->position(this->borderHeight - 1, this->borderWidth - this->footer.length() - 4 - 1);
-        term->print(this->footer);
-      }
-
-    if (this->hasBorder())
-      term->position(2, 4);
-    else
-      term->position(2, 0);
-    for (byte i = 0; i <= this->windowindex; i++)
-    {
-      if (i == this->windowindex)
-        term->set_attribute(BT_BOLD);
-
-      term->print(this->windows[i]->title);
-      if (i < this->windowindex)
-        term->print(F(" / "));
-
-      term->set_attribute(BT_NORMAL);
-    }
-
-    this->getTopWindow()->draw(term);
-
     term->position(0, 0);
+  term->print(this->title);
 
-    if (this->flush)
-      term->flush();
-
-    this->lastRedraw = millis();
+  if (this->debug)
+  {
+    String debuginfo = "";
+    this->displaydebuginfo(debuginfo);
+    if (debuginfo && debuginfo.length())
+    {
+      term->print(F(" "));
+      term->print(debuginfo.c_str());
+      term->print(F(" "));
+    }
+    // term->print(F("K: "));
+    // term->print(String(this->key, HEX).c_str());
   }
+
+  if (!this->hasBorder())
+  {
+    term->position(1, 0);
+    for (byte i = 0; i < this->title.length(); i++)
+      term->print(F("="));
+  }
+
+  if (this->hasBorder())
+    if (this->footer && this->footer.length() && this->footer.length() < this->borderWidth)
+    {
+      term->position(this->borderHeight - 1, this->borderWidth - this->footer.length() - 4 - 1);
+      term->print(this->footer);
+    }
+
+  if (this->hasBorder())
+    term->position(2, 4);
+  else
+    term->position(2, 0);
+  for (byte i = 0; i <= this->windowindex; i++)
+  {
+    if (i == this->windowindex)
+      term->set_attribute(BT_BOLD);
+
+    term->print(this->windows[i]->title);
+    if (i < this->windowindex)
+      term->print(F(" / "));
+
+    term->set_attribute(BT_NORMAL);
+  }
+
+  this->getTopWindow()->draw(term);
+
+  term->position(0, 0);
+
+  if (this->flush)
+    term->flush();
+
+  this->lastRedraw = millis();
 }
 
 #ifdef WINDOW_LOOP_INTERVAL_MS
