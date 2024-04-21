@@ -10,7 +10,6 @@ TerminalScreen::TerminalScreen(Stream *stream, bool flush, String title, String 
   this->flush = flush;
 
   this->term = new BasicTerm(stream);
-  this->term->init();
   this->term->show_cursor(false);
 }
 
@@ -25,6 +24,9 @@ TerminalScreen::~TerminalScreen()
 
 void TerminalScreen::addWindow(TerminalWindow *window)
 {
+  if (this->windowindex < 0)
+    this->term->init();
+
   window->setScreen(this);
 
   window->init();
