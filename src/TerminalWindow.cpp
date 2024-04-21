@@ -152,7 +152,8 @@ void TerminalWindow::processKey(uint16_t key)
 #ifdef WINDOW_CLOSE_ESC
   if (key == 0x1b)
   {
-    this->close();
+    if (this->canCloseByEscape())
+      this->close();
     return;
   }
 #endif

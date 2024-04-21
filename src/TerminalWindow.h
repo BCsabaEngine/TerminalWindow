@@ -26,6 +26,7 @@ public:
   String title;
   void draw(BasicTerm *term);
   virtual void loop(){};
+  virtual bool canCloseByEscape() { return true; };
   void close();
   void init();
   void redrawScreen();
