@@ -77,18 +77,24 @@ bool TerminalTextEdit::handleKey(uint16_t key)
   }
 
   char ch = key & 0xFF;
-  if (
-      (this->allowed_lower_alpha && ch >= 'a' && ch <= 'z') ||
-      (this->allowed_upper_alpha && ch >= 'A' && ch <= 'Z') ||
-      (this->allowed_numbers && ch >= '0' && ch <= '9') ||
-      (this->allowed_space && ch == 0x20) ||
-      this->allowed_extrachars.indexOf(ch) >= 0)
-  {
-    this->appendChar(ch);
-    return true;
-  }
+  if (this->max_length == 0 || value.length() < this->max_length)
+    if (
+        (this->allowed_lower_alpha && ch >= 'a' && ch <= 'z') ||
+        (this->allowed_upper_alpha && ch >= 'A' && ch <= 'Z') ||
+        (this->allowed_numbers && ch >= '0' && ch <= '9') ||
+        (this->allowed_space && ch == 0x20) ||
+        this->allowed_extrachars.indexOf(ch) >= 0)
+    {
+      this->appendChar(ch);
+      return true;
+    }
 
   return false;
+}
+
+void TerminalTextEdit::setMaxLength(uint8_t max_length)
+{
+  this->max_length = max_length;
 }
 
 void TerminalTextEdit::setAllowedChars(bool lower_alpha, bool upper_alpha, bool numbers, bool space, String extrachars)

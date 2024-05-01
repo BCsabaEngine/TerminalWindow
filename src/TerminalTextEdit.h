@@ -15,6 +15,7 @@ private:
   void removeLastChar();
   texteditFuncPtr changehandler = NULL;
   texteditEnterKeyFuncPtr enterkeyhandler = NULL;
+  uint8_t max_length = 0;
   bool allowed_lower_alpha = true;
   bool allowed_upper_alpha = true;
   bool allowed_numbers = true;
@@ -26,6 +27,7 @@ public:
   virtual ~TerminalTextEdit() {}
   String getValue();
   void setValue(String value);
+  void setMaxLength(uint8_t max_length);
   void setAllowedChars(bool lower_alpha, bool upper_alpha, bool numbers, bool space, String extrachars = "");
   virtual void draw(BasicTerm *term, bool focused);
   virtual bool canFocus() { return this->visible; }
